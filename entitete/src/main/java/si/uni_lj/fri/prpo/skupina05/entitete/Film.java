@@ -1,5 +1,15 @@
 package si.uni_lj.fri.prpo.skupina05.entitete;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
 @Entity(name = "film")
 @NamedQueries(value =
         {

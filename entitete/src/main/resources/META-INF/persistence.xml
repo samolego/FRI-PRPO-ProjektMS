@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+    <persistence-unit name="priporocila-jpa" transaction-type="JTA">
+        <jta-data-source>jdbc/PriporocilaDS</jta-data-source>
+
+        <class>si.uni_lj.fri.prpo.skupina05.entitete.Film</class>
+        <class>si.uni_lj.fri.prpo.skupina05.entitete.Zanr</class>
+
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
+            <property name="javax.persistence.sql-load-script-source" value="sql-scripts/init-db.sql"/>
+            <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
+        </properties>
+    </persistence-unit>
+</persistence>

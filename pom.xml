@@ -6,7 +6,7 @@
 
     <groupId>si.uni-lj.fri.prpo.skupina05</groupId>
     <artifactId>prpo-projekt</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <modules>
         <module>api</module>
@@ -14,8 +14,8 @@
         <module>entitete</module>
     </modules>
 
-    <name></name>
-    <description></description>
+    <name>Priporocila filmov</name>
+    <description>Projekt PRPO Milica in Samo</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -23,6 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kumuluzee.version>4.1.0</kumuluzee.version>
         <postgresql.version>42.6.0</postgresql.version>
+         <revision>1.0.0-SNAPSHOT</revision>
     </properties>
 
     <dependencyManagement>

@@ -7,8 +7,14 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "zanr")
-public class Zanr {
+@Entity(name = "kinoteka")
+@NamedQueries(value =
+        {
+                @NamedQuery(name = "Kinoteka.getAll", query = "SELECT k FROM kinoteka k"),
+                @NamedQuery(name = "Kinoteka.getName", query = "SELECT k.ime FROM kinoteka k WHERE k.id = :id")
+        })
+
+public class Kinoteka {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +22,8 @@ public class Zanr {
 
     private String ime;
 
-    @OneToMany
+    private String spletnaStran;
+    @ManyToMany
     @JoinColumn(name = "film_id")
     private List<Film> filmi;
 
@@ -29,6 +36,12 @@ public class Zanr {
     public String getIme() { return ime; }
 
     public void setIme(String ime) { this.ime = ime; }
+
+    public String getSpletnaStran() { return spletnaStran; }
+
+    public void setSpletnaStran(String spletnaStran) {
+        this.spletnaStran = spletnaStran;
+    }
 
     public List<Film> getFilmi() {
         return filmi;

@@ -4,6 +4,7 @@ package si.uni_lj.fri.prpo.skupina05.entitete;
 import org.eclipse.persistence.internal.expressions.SQLUpdateAllStatementForOracleAnonymousBlock;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +45,8 @@ public class Kinoteka {
     }
 
     public List<Film> getFilmi() {
+        if (filmi == null)
+            this.filmi = new ArrayList<>();
         return filmi;
     }
 

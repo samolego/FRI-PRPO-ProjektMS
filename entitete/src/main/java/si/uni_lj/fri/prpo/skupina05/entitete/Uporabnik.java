@@ -4,6 +4,7 @@ package si.uni_lj.fri.prpo.skupina05.entitete;
 import org.eclipse.persistence.internal.expressions.SQLUpdateAllStatementForOracleAnonymousBlock;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,6 +63,8 @@ public class Uporabnik {
     public void setEmail(String email) { this.email = email; }
 
     public List<Film> getFilmiPogledano() {
+        if (filmiPogledano == null)
+            this.filmiPogledano = new ArrayList<>();
         return filmiPogledano;
     }
 
@@ -70,6 +73,8 @@ public class Uporabnik {
     }
 
     public List<Film> getFilmiVsec() {
+        if (filmiVsec == null)
+            this.filmiVsec = new ArrayList<>();
         return filmiVsec;
     }
 

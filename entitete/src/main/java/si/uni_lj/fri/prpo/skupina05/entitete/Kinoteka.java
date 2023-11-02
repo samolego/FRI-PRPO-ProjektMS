@@ -13,8 +13,8 @@ import java.util.List;
 
                 @NamedQuery(name = "Kinoteka.getSpletnaStran", query = "SELECT k.spletnaStran FROM kinoteka k WHERE k.id = :id"),
                 @NamedQuery(name = "Kinoteka.getFilmi", query = "SELECT k.filmi FROM kinoteka k WHERE k.id = :id"),
-        })
-
+        }
+)
 public class Kinoteka {
 
     @Id

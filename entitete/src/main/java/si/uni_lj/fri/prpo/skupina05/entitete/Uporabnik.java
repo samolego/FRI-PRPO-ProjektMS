@@ -14,7 +14,8 @@ import java.util.List;
                 @NamedQuery(name = "Uporabnik.getIme", query = "SELECT u.ime FROM uporabnik u WHERE u.id = :id"),
                 @NamedQuery(name = "Uporabnik.getPriimek", query = "SELECT u.priiimek FROM uporabnik u WHERE u.id = :id"),
                 @NamedQuery(name = "Uporabnik.getAllEmails", query = "SELECT u.email FROM uporabnik u"),
-        })
+        }
+)
 public class Uporabnik {
 
     @Id

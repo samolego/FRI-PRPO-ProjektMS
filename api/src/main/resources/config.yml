@@ -1,0 +1,10 @@
+kumuluzee:
+  name: prpo-projekt
+  version: 1.0.0-SNAPSHOT
+  env:
+    name: dev
+  datasources:
+    - jndi-name: jdbc/PriporocilaDS
+      connection-url: jdbc:postgresql://localhost:5432/priporocila
+      username: postgres
+      password: postgres

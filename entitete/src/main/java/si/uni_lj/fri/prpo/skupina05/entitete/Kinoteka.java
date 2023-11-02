@@ -1,20 +1,20 @@
 package si.uni_lj.fri.prpo.skupina05.entitete;
 
 
-import org.eclipse.persistence.internal.expressions.SQLUpdateAllStatementForOracleAnonymousBlock;
-
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity(name = "kinoteka")
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Kinoteka.getAll", query = "SELECT k FROM kinoteka k"),
-                @NamedQuery(name = "Kinoteka.getName", query = "SELECT k.ime FROM kinoteka k WHERE k.id = :id")
-        })
+                @NamedQuery(name = "Kinoteka.getName", query = "SELECT k.ime FROM kinoteka k WHERE k.id = :id"),
 
+                @NamedQuery(name = "Kinoteka.getSpletnaStran", query = "SELECT k.spletnaStran FROM kinoteka k WHERE k.id = :id"),
+                @NamedQuery(name = "Kinoteka.getFilmi", query = "SELECT k.filmi FROM kinoteka k WHERE k.id = :id"),
+        }
+)
 public class Kinoteka {
 
     @Id

@@ -1,19 +1,21 @@
 package si.uni_lj.fri.prpo.skupina05.entitete;
 
 
-import org.eclipse.persistence.internal.expressions.SQLUpdateAllStatementForOracleAnonymousBlock;
-
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity(name = "uporabnik")
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u"),
-                @NamedQuery(name = "Uporabnik.getUsernameFromId", query = "SELECT u.uporabniskoIme FROM uporabnik u WHERE u.id = :id")
-        })
+                @NamedQuery(name = "Uporabnik.getUsernameFromId", query = "SELECT u.uporabniskoIme FROM uporabnik u WHERE u.id = :id"),
+
+                @NamedQuery(name = "Uporabnik.getIme", query = "SELECT u.ime FROM uporabnik u WHERE u.id = :id"),
+                @NamedQuery(name = "Uporabnik.getPriimek", query = "SELECT u.priiimek FROM uporabnik u WHERE u.id = :id"),
+                @NamedQuery(name = "Uporabnik.getAllEmails", query = "SELECT u.email FROM uporabnik u"),
+        }
+)
 public class Uporabnik {
 
     @Id

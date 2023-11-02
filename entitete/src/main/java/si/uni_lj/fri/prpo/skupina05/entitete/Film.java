@@ -1,8 +1,6 @@
 package si.uni_lj.fri.prpo.skupina05.entitete;
 
 
-import org.eclipse.persistence.internal.expressions.SQLUpdateAllStatementForOracleAnonymousBlock;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +12,11 @@ import java.util.List;
                 @NamedQuery(name = "Film.getAll", query = "SELECT f FROM film f"),
                 @NamedQuery(name = "Film.getAllRatedAs", query = "SELECT f FROM film f WHERE f.rating = :rating"),
                 @NamedQuery(name = "Film.getAllWithGenre", query = "SELECT f.ime, g.ime FROM film f INNER JOIN zanr g ON f.zanr=g WHERE g.ime= :zanr"),
-                @NamedQuery(name = "Film.getGenre", query = "SELECT f.ime, g.ime FROM film f INNER JOIN zanr g ON f.zanr=g where f.ime = :ime")
+                @NamedQuery(name = "Film.getGenre", query = "SELECT f.ime, g.ime FROM film f INNER JOIN zanr g ON f.zanr=g where f.ime = :ime"),
+
+                @NamedQuery(name = "Film.getAllMinRating", query = "SELECT f FROM film f WHERE f.rating >= :rating"),
+                @NamedQuery(name = "Film.getAllMaxRating", query = "SELECT f FROM film f WHERE f.rating <= :rating"),
+                @NamedQuery(name = "Film.getDate", query = "SELECT f FROM film f WHERE f.datumIzida = :datumIzida"),
 
         })
 
@@ -30,7 +32,7 @@ public class Film {
 
     private Integer rating;
 
-    private Date datimIzida;
+    private Date datumIzida;
 
     @ManyToOne
     @JoinColumn(name = "zanr_id")
@@ -66,10 +68,12 @@ public class Film {
 
     public void setRating(Integer rating) { this.rating = rating; }
 
-    public Date getDatimIzida() { return datimIzida; }
+    public Date getDatumIzida() {
+        return datumIzida;
+    }
 
-    public void setDatimIzida(Date datimIzida) {
-        this.datimIzida = datimIzida;
+    public void setDatumIzida(Date datumIzida) {
+        this.datumIzida = datumIzida;
     }
 
     public Zanr getZanr() { return zanr; }
@@ -77,7 +81,7 @@ public class Film {
     public void setZanr(Zanr zanr) { this.zanr = zanr; }
 
     public List<Uporabnik> getUporabnikiPogledano() {
-        if(uporabnikiPogledano == null)
+        if (uporabnikiPogledano == null)
             this.uporabnikiPogledano = new ArrayList<>();
         return uporabnikiPogledano;
     }

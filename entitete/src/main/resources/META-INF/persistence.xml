@@ -4,6 +4,8 @@
         <jta-data-source>jdbc/PriporocilaDS</jta-data-source>
 
         <class>si.uni_lj.fri.prpo.skupina05.entitete.Film</class>
+        <class>si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka</class>
+        <class>si.uni_lj.fri.prpo.skupina05.entitete.Uporabnik</class>
         <class>si.uni_lj.fri.prpo.skupina05.entitete.Zanr</class>
 
         <properties>

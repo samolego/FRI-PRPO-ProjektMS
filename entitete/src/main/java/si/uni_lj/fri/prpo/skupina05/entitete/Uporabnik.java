@@ -30,12 +30,10 @@ public class Uporabnik {
 
     private String email;
 
-    @Column(name = "filmi_pogledano")
     @ManyToMany
     @JoinColumn(name = "film_id")
     private List<Film> filmiPogledano;
 
-    @Column(name = "filmi_vsec")
     @ManyToMany
     @JoinColumn(name = "film_id")
     private List<Film> filmiVsec;

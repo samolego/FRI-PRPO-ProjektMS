@@ -32,16 +32,19 @@ public class Film {
 
     private Integer rating;
 
+    @Column(name = "datum_izida")
     private Date datumIzida;
 
     @ManyToOne
     @JoinColumn(name = "zanr_id")
     private Zanr zanr;
 
+    @Column(name = "uporabniki_pogledano")
     @ManyToMany
     @JoinColumn(name = "uporabnik_id")
     private List<Uporabnik> uporabnikiPogledano;
 
+    @Column(name = "uporabniki_vsec")
     @ManyToMany
     @JoinColumn(name = "uporabnik_id")
     private List<Uporabnik> uporabnikiVsec;

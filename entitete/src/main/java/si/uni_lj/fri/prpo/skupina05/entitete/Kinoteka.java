@@ -23,6 +23,7 @@ public class Kinoteka {
 
     private String ime;
 
+    @Column(name = "spletna_stran")
     private String spletnaStran;
     @ManyToMany
     @JoinColumn(name = "film_id")

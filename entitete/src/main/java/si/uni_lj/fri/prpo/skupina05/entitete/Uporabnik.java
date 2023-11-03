@@ -9,7 +9,7 @@ import java.util.List;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u"),
-                @NamedQuery(name = "Uporabnik.getUsernameFromId", query = "SELECT u.uporabnisko_ime FROM uporabnik u WHERE u.id = :id"),
+                @NamedQuery(name = "Uporabnik.getUsernameFromId", query = "SELECT u.uporabniskoIme FROM uporabnik u WHERE u.id = :id"),
 
                 @NamedQuery(name = "Uporabnik.getIme", query = "SELECT u.ime FROM uporabnik u WHERE u.id = :id"),
                 @NamedQuery(name = "Uporabnik.getPriimek", query = "SELECT u.priimek FROM uporabnik u WHERE u.id = :id"),
@@ -24,7 +24,7 @@ public class Uporabnik {
 
     private String ime;
 
-    private String priiimek;
+    private String priimek;
 
     @Column(name = "uporabnisko_ime")
     private String uporabniskoIme;
@@ -49,9 +49,13 @@ public class Uporabnik {
 
     public void setIme(String ime) { this.ime = ime; }
 
-    public String getPriiimek() { return priiimek; }
+    public String getPriimek() {
+        return priimek;
+    }
 
-    public void setPriiimek(String priiimek) { this.priiimek = priiimek; }
+    public void setPriimek(String priimek) {
+        this.priimek = priimek;
+    }
 
     public String getUporabniskoIme() {
         return uporabniskoIme;

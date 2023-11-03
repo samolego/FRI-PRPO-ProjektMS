@@ -21,7 +21,7 @@ public class Zanr {
     private String ime;
 
     @OneToMany
-    @JoinColumn(name = "film_id")
+    @JoinColumn(name = "id")
     private List<Film> filmi;
 
     // getter in setter metode

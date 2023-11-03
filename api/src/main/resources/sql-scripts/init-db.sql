@@ -1,24 +1,48 @@
--- Sample data
-INSERT INTO FILM (FILM_ID, ZANR_ID, FILM_IME, RATING, DATUM_IZIDA, OPIS) VALUES (101, 1, 'Movie A', 4, '2023-01-15', 'Description of Movie A');
-INSERT INTO FILM (FILM_ID, ZANR_ID, FILM_IME, RATING, DATUM_IZIDA, OPIS) VALUES (102, 2, 'Movie B', 3, '2022-11-30', 'Description of Movie B');
-INSERT INTO FILM (FILM_ID, ZANR_ID, FILM_IME, RATING, DATUM_IZIDA, OPIS) VALUES (103, 3, 'Movie C', 5, '2023-03-20', 'Description of Movie C');
-INSERT INTO FILM (FILM_ID, ZANR_ID, FILM_IME, RATING, DATUM_IZIDA, OPIS) VALUES (104, 1, 'Movie D', 4, '2023-04-10', 'Description of Movie D');
-INSERT INTO FILM (FILM_ID, ZANR_ID, FILM_IME, RATING, DATUM_IZIDA, OPIS) VALUES (105, 2, 'Movie E', 4, '2022-08-05', 'Description of Movie E');
+-- public.kinoteka
+INSERT INTO kinoteka (ime, spletna_stran) VALUES ('CineCity', 'www.cinecity.com');
+INSERT INTO kinoteka (ime, spletna_stran) VALUES ('Star Cineplex', 'www.starcineplex.com');
+INSERT INTO kinoteka (ime, spletna_stran) VALUES ('FilmHouse Cinemas', 'www.filmhousecinemas.com');
+INSERT INTO kinoteka (ime, spletna_stran) VALUES ('Silver Screen Cinemas', 'www.silverscreencinemas.com');
+INSERT INTO kinoteka (ime, spletna_stran) VALUES ('Hollywood Cinemas', 'www.hollywoodcinemas.com');
 
-INSERT INTO KINOTEKA (KINOTEKA_ID, KINOTEKA_IME, SPLETNA_STRAN) VALUES (1, 'Cinema X', 'www.cinemax.com');
-INSERT INTO KINOTEKA (KINOTEKA_ID, KINOTEKA_IME, SPLETNA_STRAN) VALUES (2, 'Cinema Y', 'www.cinemay.com');
-INSERT INTO KINOTEKA (KINOTEKA_ID, KINOTEKA_IME, SPLETNA_STRAN) VALUES (3, 'Cinema Z', 'www.cinemaz.com');
-INSERT INTO KINOTEKA (KINOTEKA_ID, KINOTEKA_IME, SPLETNA_STRAN) VALUES (4, 'Cinema W', 'www.cinemaw.com');
-INSERT INTO KINOTEKA (KINOTEKA_ID, KINOTEKA_IME, SPLETNA_STRAN) VALUES (5, 'Cinema V', 'www.cinemav.com');
+-- public.uporabnik
+INSERT INTO uporabnik (email, ime, priimek, uporabnisko_ime) VALUES ('alice@gmail.com', 'Alice', 'Smith', 'alice');
+INSERT INTO uporabnik (email, ime, priimek, uporabnisko_ime) VALUES ('bob@yahoo.com', 'Bob', 'Johnson', 'bob');
+INSERT INTO uporabnik (email, ime, priimek, uporabnisko_ime) VALUES ('carol@outlook.com', 'Carol', 'Williams', 'carol');
+INSERT INTO uporabnik (email, ime, priimek, uporabnisko_ime) VALUES ('dave@hotmail.com', 'Dave', 'Brown', 'dave');
+INSERT INTO uporabnik (email, ime, priimek, uporabnisko_ime) VALUES ('eve@aol.com', 'Eve', 'Davis', 'eve');
 
-INSERT INTO UPORABNIK (UPORABNIK_ID, IME, PRIIMEK, UPORABNISKO_IME, EMAIL) VALUES (1001, 'John', 'Doe', 'johndoe', 'john@example.com');
-INSERT INTO UPORABNIK (UPORABNIK_ID, IME, PRIIMEK, UPORABNISKO_IME, EMAIL) VALUES (1002, 'Jane', 'Smith', 'janesmith', 'jane@example.com');
-INSERT INTO UPORABNIK (UPORABNIK_ID, IME, PRIIMEK, UPORABNISKO_IME, EMAIL) VALUES (1003, 'Michael', 'Johnson', 'michaelj', 'michael@example.com');
-INSERT INTO UPORABNIK (UPORABNIK_ID, IME, PRIIMEK, UPORABNISKO_IME, EMAIL) VALUES (1004, 'Emily', 'Wilson', 'emilyw', 'emily@example.com');
-INSERT INTO UPORABNIK (UPORABNIK_ID, IME, PRIIMEK, UPORABNISKO_IME, EMAIL) VALUES (1005, 'David', 'Brown', 'davidb', 'david@example.com');
+-- public.zanr
+INSERT INTO zanr (ime) VALUES ('Action');
+INSERT INTO zanr (ime) VALUES ('Comedy');
+INSERT INTO zanr (ime) VALUES ('Drama');
+INSERT INTO zanr (ime) VALUES ('Sci-Fi');
+INSERT INTO zanr (ime) VALUES ('Horror');
 
-INSERT INTO ZANR (ZANR_ID, ZANR_IME) VALUES (1, 'Action');
-INSERT INTO ZANR (ZANR_ID, ZANR_IME) VALUES (2, 'Drama');
-INSERT INTO ZANR (ZANR_ID, ZANR_IME) VALUES (3, 'Comedy');
-INSERT INTO ZANR (ZANR_ID, ZANR_IME) VALUES (4, 'Sci-Fi');
-INSERT INTO ZANR (ZANR_ID, ZANR_IME) VALUES (5, 'Horror');
+-- public.film
+INSERT INTO film (datum_izida, ime, opis, rating, zanr_id) VALUES ('2023-01-01', 'Inception', 'A mind-bending thriller', 4, 4);
+INSERT INTO film (datum_izida, ime, opis, rating, zanr_id) VALUES ('2023-02-15', 'Joker', 'A dark and intense character study', 5, 3);
+INSERT INTO film (datum_izida, ime, opis, rating, zanr_id) VALUES ('2023-03-30', 'Avengers: Endgame', 'Epic superhero battle', 4, 1);
+INSERT INTO film (datum_izida, ime, opis, rating, zanr_id) VALUES ('2023-04-10', 'Parasite', 'A dark comedy thriller', 5, 2);
+INSERT INTO film (datum_izida, ime, opis, rating, zanr_id) VALUES ('2023-05-20', 'The Conjuring', 'Horror movie with jump scares', 2, 5);
+
+-- public.film_kinoteka
+INSERT INTO film_kinoteka (film_id, kinoteke_id) VALUES (1, 1);
+INSERT INTO film_kinoteka (film_id, kinoteke_id) VALUES (2, 2);
+INSERT INTO film_kinoteka (film_id, kinoteke_id) VALUES (3, 3);
+INSERT INTO film_kinoteka (film_id, kinoteke_id) VALUES (4, 4);
+INSERT INTO film_kinoteka (film_id, kinoteke_id) VALUES (5, 5);
+
+-- public.film_uporabnik
+INSERT INTO film_uporabnik (film_id, uporabnikipogledano_id, uporabnikivsec_id) VALUES (1, 1, 2);
+INSERT INTO film_uporabnik (film_id, uporabnikipogledano_id, uporabnikivsec_id) VALUES (2, 2, 3);
+INSERT INTO film_uporabnik (film_id, uporabnikipogledano_id, uporabnikivsec_id) VALUES (3, 3, 4);
+INSERT INTO film_uporabnik (film_id, uporabnikipogledano_id, uporabnikivsec_id) VALUES (4, 4, 5);
+INSERT INTO film_uporabnik (film_id, uporabnikipogledano_id, uporabnikivsec_id) VALUES (5, 5, 1);
+
+-- public.kinoteka_film
+INSERT INTO kinoteka_film (kinoteka_id, filmi_id) VALUES (1, 1);
+INSERT INTO kinoteka_film (kinoteka_id, filmi_id) VALUES (2, 2);
+INSERT INTO kinoteka_film (kinoteka_id, filmi_id) VALUES (3, 3);
+INSERT INTO kinoteka_film (kinoteka_id, filmi_id) VALUES (4, 4);
+INSERT INTO kinoteka_film (kinoteka_id, filmi_id) VALUES (5, 5);

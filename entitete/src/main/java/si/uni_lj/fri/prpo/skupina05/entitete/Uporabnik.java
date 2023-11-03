@@ -9,10 +9,10 @@ import java.util.List;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u"),
-                @NamedQuery(name = "Uporabnik.getUsernameFromId", query = "SELECT u.uporabniskoIme FROM uporabnik u WHERE u.id = :id"),
+                @NamedQuery(name = "Uporabnik.getUsernameFromId", query = "SELECT u.uporabnisko_ime FROM uporabnik u WHERE u.id = :id"),
 
                 @NamedQuery(name = "Uporabnik.getIme", query = "SELECT u.ime FROM uporabnik u WHERE u.id = :id"),
-                @NamedQuery(name = "Uporabnik.getPriimek", query = "SELECT u.priiimek FROM uporabnik u WHERE u.id = :id"),
+                @NamedQuery(name = "Uporabnik.getPriimek", query = "SELECT u.priimek FROM uporabnik u WHERE u.id = :id"),
                 @NamedQuery(name = "Uporabnik.getAllEmails", query = "SELECT u.email FROM uporabnik u"),
         }
 )
@@ -26,6 +26,7 @@ public class Uporabnik {
 
     private String priiimek;
 
+    @Column(name = "uporabnisko_ime")
     private String uporabniskoIme;
 
     private String email;

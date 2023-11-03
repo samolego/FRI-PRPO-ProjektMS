@@ -20,6 +20,14 @@
             <groupId>com.kumuluz.ee</groupId>
             <artifactId>kumuluzee-servlet-jetty</artifactId>
         </dependency>
+        <dependency>
+            <groupId>si.uni-lj.fri.prpo.skupina05</groupId>
+            <artifactId>entitete</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>si.uni-lj.fri.prpo.skupina05</groupId>
+            <artifactId>storitve</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>

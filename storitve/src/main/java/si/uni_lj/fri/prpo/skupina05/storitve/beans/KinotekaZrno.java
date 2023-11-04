@@ -1,0 +1,19 @@
+package si.uni_lj.fri.prpo.skupina05.storitve.beans;
+
+import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
+@ApplicationScoped
+public class KinotekaZrno {
+
+    @PersistenceContext(unitName = "priporocila-jpa")
+    private EntityManager em;
+
+    public List<Kinoteka> getKinoteke() {
+        return (List<Kinoteka>) this.em.createNamedQuery("Kinoteka.getAll").getResultList();
+    }
+}

@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kumuluzee.version>4.1.0</kumuluzee.version>
         <postgresql.version>42.6.0</postgresql.version>
-         <revision>1.0.0-SNAPSHOT</revision>
+        <revision>0.2.0-SNAPSHOT</revision>
     </properties>
 
     <dependencyManagement>

@@ -34,7 +34,7 @@ public class JPAServlet extends HttpServlet {
         List<Kinoteka> kinoteke = this.kinotekaZrno.getKinoteke();
 
         // izpis kinotek na spletno stran
-        resp.getWriter().println("<html><body><h1>Kinoteke</h1>");
+        resp.getWriter().println("<h1>Kinoteke</h1>");
         for (Kinoteka k : kinoteke) {
             resp.getWriter().println("<p>" + k.getIme() + " <em>(" + k.getSpletnaStran() +")</em></p>");
         }

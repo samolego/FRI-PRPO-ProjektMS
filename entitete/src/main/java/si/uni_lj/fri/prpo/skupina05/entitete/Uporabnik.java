@@ -31,6 +31,8 @@ public class Uporabnik {
 
     private String email;
 
+    private String geslo;
+
     @ManyToMany
     @JoinColumn(name = "film_id")
     private List<Film> filmiPogledano;
@@ -87,5 +89,13 @@ public class Uporabnik {
 
     public void setFilmiVsec(List<Film> filmiVsec) {
         this.filmiVsec = filmiVsec;
+    }
+
+    public String getGeslo() {
+        return geslo;
+    }
+
+    public void setGeslo(String geslo) {
+        this.geslo = geslo;
     }
 }

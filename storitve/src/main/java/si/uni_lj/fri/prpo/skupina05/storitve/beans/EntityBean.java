@@ -6,28 +6,27 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-public interface IEntityBean<T extends IdentifiableEntity> {
+public abstract class EntityBean<T extends IdentifiableEntity> {
 
     @Transactional
-    default void deleteEntityById(int id) {
-        final var entity = this.getEntityById(id);
+    public void deleteEntityById(int id, Class<T> clas) {
+        final var entity = this.getEntityById(id, clas);
         entity.ifPresent(this.getEntityManager()::remove);
     }
 
-    default Optional<T> getEntityById(int id) {
-        return Optional.ofNullable((T) this.getEntityManager().find(Object.class, id));
+    protected Optional<T> getEntityById(int id, Class<T> clas) {
+        return Optional.ofNullable(this.getEntityManager().find(clas, id));
     }
 
-
-    default void insertEntity(T entity) {
+    public void insertEntity(T entity) {
         this.getEntityManager().persist(entity);
     }
 
 
     @Transactional
-    default void updateEntity(int id, T entity) {
+    public void updateEntity(int id, T entity) {
         if (entity != null) {
-            final var oldEntity = this.getEntityById(id);
+            final var oldEntity = this.getEntityById(id, (Class<T>) entity.getClass());
 
             oldEntity.ifPresent(old -> {
                 entity.setId(old.getId());
@@ -36,5 +35,5 @@ public interface IEntityBean<T extends IdentifiableEntity> {
         }
     }
 
-    EntityManager getEntityManager();
+    protected abstract EntityManager getEntityManager();
 }

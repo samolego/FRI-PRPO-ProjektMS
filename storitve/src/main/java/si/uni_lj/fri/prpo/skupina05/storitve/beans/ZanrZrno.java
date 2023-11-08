@@ -8,10 +8,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class ZanrZrno implements IEntityBean<Zanr> {
+public class ZanrZrno extends EntityBean<Zanr> {
     private final Logger LOG = Logger.getLogger(ZanrZrno.class.getName());
     @PersistenceContext(unitName = "priporocila-jpa")
     private EntityManager em;
@@ -33,5 +34,13 @@ public class ZanrZrno implements IEntityBean<Zanr> {
     @Override
     public EntityManager getEntityManager() {
         return em;
+    }
+
+    public void deleteZanrById(int id) {
+        this.deleteEntityById(id, Zanr.class);
+    }
+
+    public Optional<Zanr> getZanrById(int id) {
+        return this.getEntityById(id, Zanr.class);
     }
 }

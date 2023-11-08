@@ -8,10 +8,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class FilmZrno implements IEntityBean<Film> {
+public class FilmZrno extends EntityBean<Film> {
     private final Logger LOG = Logger.getLogger(FilmZrno.class.getName());
 
     @PostConstruct
@@ -32,7 +33,11 @@ public class FilmZrno implements IEntityBean<Film> {
     }
 
     @Override
-    public EntityManager getEntityManager() {
+    protected EntityManager getEntityManager() {
         return em;
+    }
+
+    public Optional<Film> getFilmById(int id) {
+        return this.getEntityById(id, Film.class);
     }
 }

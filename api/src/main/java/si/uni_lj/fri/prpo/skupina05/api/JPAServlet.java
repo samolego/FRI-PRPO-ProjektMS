@@ -37,7 +37,7 @@ public class JPAServlet extends HttpServlet {
             writer.println("<p>" + f.getIme() + " (" + f.getId() + ")</p>");
         }
 
-        writer.println(filmiZrno.getEntityById(1).get().getIme());
+        writer.println(filmiZrno.getFilmById(1).get().getIme());
         //filmiZrno.deleteFilmById(1);
         writer.println(zanrZrno.getZanrById(1).get().getIme());
         zanrZrno.deleteZanrById(1);

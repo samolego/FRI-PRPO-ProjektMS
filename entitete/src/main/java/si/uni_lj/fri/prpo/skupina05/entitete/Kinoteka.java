@@ -15,7 +15,7 @@ import java.util.List;
                 @NamedQuery(name = "Kinoteka.getFilmi", query = "SELECT k.filmi FROM kinoteka k WHERE k.id = :id"),
         }
 )
-public class Kinoteka {
+public class Kinoteka implements IdentifiableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +25,9 @@ public class Kinoteka {
 
     @Column(name = "spletna_stran")
     private String spletnaStran;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "film_id")
     private List<Film> filmi;
-
-    // getter in setter metode
 
     public Integer getId() { return id; }
 

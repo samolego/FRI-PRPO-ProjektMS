@@ -12,7 +12,7 @@ import java.util.List;
         @NamedQuery(name = "Zanr.getFilmi", query = "SELECT z.filmi FROM zanr z WHERE z.id = :id"),
 }
 )
-public class Zanr {
+public class Zanr implements IdentifiableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +20,10 @@ public class Zanr {
 
     private String ime;
 
-    @OneToMany
+    // Ko izbrišemp žanr, se izbrišejo tudi filmi, ki imajo ta žanr
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
     private List<Film> filmi;
-
-    // getter in setter metode
 
     public Integer getId() { return id; }
 

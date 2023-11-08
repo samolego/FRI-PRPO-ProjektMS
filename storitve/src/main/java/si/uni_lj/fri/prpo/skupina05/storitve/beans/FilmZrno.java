@@ -7,13 +7,11 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class FilmZrno {
+public class FilmZrno implements IEntityBean<Film> {
     private final Logger LOG = Logger.getLogger(FilmZrno.class.getName());
 
     @PostConstruct
@@ -33,33 +31,8 @@ public class FilmZrno {
         return this.em.createNamedQuery("Film.getAll", Film.class).getResultList();
     }
 
-    public Optional<Film> getFilmById(int id) {
-        return Optional.ofNullable(this.em.find(Film.class, id));
-    }
-
-    @Transactional
-    public void deleteFilmById(int id) {
-        final var film = this.getFilmById(id);
-        film.ifPresent(this.em::remove);
-    }
-
-    @Transactional
-    public void addFilm(Film film) {
-        if (film != null) {
-            this.em.persist(film);
-        }
-    }
-
-
-    @Transactional
-    public void editFilm(int id, Film film) {
-        if (film != null) {
-            final var oldFilm = this.getFilmById(id);
-
-            oldFilm.ifPresent(old -> {
-                film.setId(old.getId());
-                this.em.merge(film);
-            });
-        }
+    @Override
+    public EntityManager getEntityManager() {
+        return em;
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class KinotekaZrno implements IEntityBean<Kinoteka> {
+public class KinotekaZrno extends EntityBean<Kinoteka> {
 
     private final Logger LOG = Logger.getLogger(KinotekaZrno.class.getName());
 
@@ -32,7 +32,7 @@ public class KinotekaZrno implements IEntityBean<Kinoteka> {
         return this.em.createNamedQuery("Kinoteka.getAll", Kinoteka.class).getResultList();
     }
     @Override
-    public EntityManager getEntityManager() {
+    protected EntityManager getEntityManager() {
         return em;
     }
 }

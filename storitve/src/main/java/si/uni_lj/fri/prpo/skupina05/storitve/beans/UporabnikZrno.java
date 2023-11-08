@@ -7,13 +7,10 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class UporabnikZrno implements IEntityBean<Uporabnik> {
+public class UporabnikZrno extends EntityBean<Uporabnik> {
     private final Logger LOG = Logger.getLogger(UporabnikZrno.class.getName());
 
     @PostConstruct
@@ -30,7 +27,7 @@ public class UporabnikZrno implements IEntityBean<Uporabnik> {
     private EntityManager em;
 
     @Override
-    public EntityManager getEntityManager() {
+    protected EntityManager getEntityManager() {
         return em;
     }
 }

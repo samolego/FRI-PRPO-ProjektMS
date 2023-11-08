@@ -16,7 +16,7 @@ import java.util.List;
                 @NamedQuery(name = "Uporabnik.getAllEmails", query = "SELECT u.email FROM uporabnik u"),
         }
 )
-public class Uporabnik {
+public class Uporabnik implements IdentifiableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,15 +33,14 @@ public class Uporabnik {
 
     private String geslo;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "film_id")
     private List<Film> filmiPogledano;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "film_id")
     private List<Film> filmiVsec;
 
-    // getter in setter metode
 
     public Integer getId() { return id; }
 

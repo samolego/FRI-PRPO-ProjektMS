@@ -20,7 +20,7 @@ import java.util.List;
 
         })
 
-public class Film {
+public class Film implements IdentifiableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,19 +39,17 @@ public class Film {
     @JoinColumn(name = "zanr_id")
     private Zanr zanr;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "uporabnik_id")
     private List<Uporabnik> uporabnikiPogledano;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "uporabnik_id")
     private List<Uporabnik> uporabnikiVsec;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "kinoteka_id")
     private List<Kinoteka> kinoteke;
-
-    // getter in setter metode
 
     public Integer getId() { return id; }
 

@@ -8,12 +8,17 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @ApplicationScoped
-public class KinotekaZrno {
+public class KinotekaZrno implements IEntityBean<Kinoteka> {
 
     @PersistenceContext(unitName = "priporocila-jpa")
     private EntityManager em;
 
     public List<Kinoteka> getKinoteke() {
         return this.em.createNamedQuery("Kinoteka.getAll", Kinoteka.class).getResultList();
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return em;
     }
 }

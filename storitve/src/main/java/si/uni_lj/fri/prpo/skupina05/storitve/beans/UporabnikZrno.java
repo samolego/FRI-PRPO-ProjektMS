@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class UporabnikZrno {
+public class UporabnikZrno implements IEntityBean<Uporabnik> {
     private final Logger LOG = Logger.getLogger(UporabnikZrno.class.getName());
 
     @PostConstruct
@@ -29,30 +29,8 @@ public class UporabnikZrno {
     @PersistenceContext(unitName = "priporocila-jpa")
     private EntityManager em;
 
-    public Optional<Uporabnik> getUporabnikById(int id) {
-        return Optional.ofNullable(this.em.find(Uporabnik.class, id));
-    }
-    @Transactional
-    public void deleteUporabnikById(int id) {
-        final var uporabnik = this.getUporabnikById(id);
-        uporabnik.ifPresent(this.em::remove);
-    }
-    @Transactional
-    public void addUporabnik(Uporabnik uporabnik) {
-        if (uporabnik != null) {
-            this.em.persist(uporabnik);
-        }
-    }
-
-    @Transactional
-    public void editUporabnik(int id, Uporabnik uporabnik) {
-        if (uporabnik != null) {
-            final var oldUporabnik = this.getUporabnikById(id);
-
-            oldUporabnik.ifPresent(old -> {
-                uporabnik.setId(old.getId());
-                this.em.merge(uporabnik);
-            });
-        }
+    @Override
+    public EntityManager getEntityManager() {
+        return em;
     }
 }

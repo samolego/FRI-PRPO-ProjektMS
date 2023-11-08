@@ -14,6 +14,6 @@ public class FilmZrno {
     private EntityManager em;
 
     public List<Film> getFilmi() {
-        return (List<Film>) this.em.createNamedQuery("Film.getAll").getResultList();
+        return this.em.createNamedQuery("Film.getAll", Film.class).getResultList();
     }
 }

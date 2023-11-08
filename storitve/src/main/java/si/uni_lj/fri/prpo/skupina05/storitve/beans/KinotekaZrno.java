@@ -14,6 +14,6 @@ public class KinotekaZrno {
     private EntityManager em;
 
     public List<Kinoteka> getKinoteke() {
-        return (List<Kinoteka>) this.em.createNamedQuery("Kinoteka.getAll").getResultList();
+        return this.em.createNamedQuery("Kinoteka.getAll", Kinoteka.class).getResultList();
     }
 }

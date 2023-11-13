@@ -45,4 +45,8 @@ public class ZanrZrno extends EntityBean<Zanr> {
     public Optional<Zanr> getZanrById(int id) {
         return this.getEntityById(id, Zanr.class);
     }
+
+    public Optional<Zanr> getZanrByName(String ime) {
+        return this.em.createNamedQuery("Zanr.getByIme", Zanr.class).setParameter("ime", ime).getResultStream().findFirst();
+    }
 }

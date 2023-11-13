@@ -42,6 +42,10 @@ public class FilmZrno extends EntityBean<Film> {
         return this.getEntityById(id, Film.class);
     }
 
+    public Optional<Film> getFilmByIme(String ime) {
+        return this.em.createNamedQuery("Film.getByIme", Film.class).setParameter("ime", ime).getResultStream().findFirst();
+    }
+
     @Transactional
     public void deleteFilmById(int id) {
         this.deleteEntityById(id, Film.class);

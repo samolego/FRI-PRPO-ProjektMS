@@ -14,18 +14,18 @@ import java.util.logging.Logger;
 
 @ApplicationScoped
 public class ZanrZrno extends EntityBean<Zanr> {
-    private final Logger LOG = Logger.getLogger(this.getClass().getName());
+    private final Logger LOG = Logger.getLogger(ZanrZrno.class.getName());
     @PersistenceContext(unitName = "priporocila-jpa")
     private EntityManager em;
 
     @PostConstruct
     public void init() {
-        LOG.info("Inicializacija zrna " + this.getClass().getSimpleName() + ".");
+        LOG.info("Inicializacija zrna " + ZanrZrno.class.getSimpleName() + ".");
     }
 
     @PreDestroy
     public void destroy() {
-        LOG.info("Deinicializacija zrna " + this.getClass().getSimpleName() + ".");
+        LOG.info("Deinicializacija zrna " + ZanrZrno.class.getSimpleName() + ".");
     }
 
     public List<Zanr> getZanri() {
@@ -44,5 +44,9 @@ public class ZanrZrno extends EntityBean<Zanr> {
 
     public Optional<Zanr> getZanrById(int id) {
         return this.getEntityById(id, Zanr.class);
+    }
+
+    public Optional<Zanr> getZanrByName(String ime) {
+        return this.em.createNamedQuery("Zanr.getByIme", Zanr.class).setParameter("ime", ime).getResultStream().findFirst();
     }
 }

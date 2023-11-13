@@ -11,16 +11,16 @@ import java.util.logging.Logger;
 
 @ApplicationScoped
 public class UporabnikZrno extends EntityBean<Uporabnik> {
-    private final Logger LOG = Logger.getLogger(this.getClass().getName());
+    private final Logger LOG = Logger.getLogger(UporabnikZrno.class.getName());
 
     @PostConstruct
     public void init() {
-        LOG.info("Inicializacija zrna " + this.getClass().getSimpleName() + ".");
+        LOG.info("Inicializacija zrna " + UporabnikZrno.class.getSimpleName() + ".");
     }
 
     @PreDestroy
     public void destroy() {
-        LOG.info("Deinicializacija zrna " + this.getClass().getSimpleName() + ".");
+        LOG.info("Deinicializacija zrna " + UporabnikZrno.class.getSimpleName() + ".");
     }
 
     @PersistenceContext(unitName = "priporocila-jpa")

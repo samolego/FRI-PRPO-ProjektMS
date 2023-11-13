@@ -17,7 +17,7 @@ import java.util.List;
                 @NamedQuery(name = "Film.getAllMinRating", query = "SELECT f FROM film f WHERE f.rating >= :rating"),
                 @NamedQuery(name = "Film.getAllMaxRating", query = "SELECT f FROM film f WHERE f.rating <= :rating"),
                 @NamedQuery(name = "Film.getDate", query = "SELECT f FROM film f WHERE f.datumIzida = :datumIzida"),
-
+                @NamedQuery(name = "Film.getByIme", query = "SELECT f FROM film f WHERE f.ime = :ime"),
         })
 public class Film implements IdentifiableEntity {
 

@@ -10,6 +10,7 @@ import java.util.List;
         @NamedQuery(name = "Zanr.getAll", query = "SELECT z FROM zanr z"),
         @NamedQuery(name = "Zanr.getIme", query = "SELECT z.ime FROM zanr z WHERE z.id = :id"),
         @NamedQuery(name = "Zanr.getFilmi", query = "SELECT z.filmi FROM zanr z WHERE z.id = :id"),
+        @NamedQuery(name = "Zanr.getByIme", query = "SELECT z FROM zanr z WHERE z.ime = :ime")
 }
 )
 public class Zanr implements IdentifiableEntity {

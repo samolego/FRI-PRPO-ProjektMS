@@ -14,16 +14,16 @@ import java.util.logging.Logger;
 
 @ApplicationScoped
 public class FilmZrno extends EntityBean<Film> {
-    private final Logger LOG = Logger.getLogger(this.getClass().getName());
+    private final Logger LOG = Logger.getLogger(FilmZrno.class.getName());
 
     @PostConstruct
     public void init() {
-        LOG.info("Inicializacija zrna " + this.getClass().getSimpleName() + ".");
+        LOG.info("Inicializacija zrna " + FilmZrno.class.getSimpleName() + ".");
     }
 
     @PreDestroy
     public void destroy() {
-        LOG.info("Deinicializacija zrna " + this.getClass().getSimpleName() + ".");
+        LOG.info("Deinicializacija zrna " + FilmZrno.class.getSimpleName() + ".");
     }
 
     @PersistenceContext(unitName = "priporocila-jpa")
@@ -40,6 +40,10 @@ public class FilmZrno extends EntityBean<Film> {
 
     public Optional<Film> getFilmById(int id) {
         return this.getEntityById(id, Film.class);
+    }
+
+    public Optional<Film> getFilmByIme(String ime) {
+        return this.em.createNamedQuery("Film.getByIme", Film.class).setParameter("ime", ime).getResultStream().findFirst();
     }
 
     @Transactional

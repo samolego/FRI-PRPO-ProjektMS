@@ -19,7 +19,6 @@ import java.util.List;
                 @NamedQuery(name = "Film.getDate", query = "SELECT f FROM film f WHERE f.datumIzida = :datumIzida"),
 
         })
-
 public class Film implements IdentifiableEntity {
 
     @Id
@@ -35,7 +34,7 @@ public class Film implements IdentifiableEntity {
     @Column(name = "datum_izida")
     private Date datumIzida;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "zanr_id")
     private Zanr zanr;
 
@@ -47,7 +46,7 @@ public class Film implements IdentifiableEntity {
     @JoinColumn(name = "uporabnik_id")
     private List<Uporabnik> uporabnikiVsec;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "kinoteka_id")
     private List<Kinoteka> kinoteke;
 

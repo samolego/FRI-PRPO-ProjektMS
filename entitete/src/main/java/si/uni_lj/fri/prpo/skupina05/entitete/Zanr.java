@@ -21,7 +21,7 @@ public class Zanr implements IdentifiableEntity {
     private String ime;
 
     // Ko izbrišemp žanr, se izbrišejo tudi filmi, ki imajo ta žanr
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "zanr", cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
     private List<Film> filmi;
 

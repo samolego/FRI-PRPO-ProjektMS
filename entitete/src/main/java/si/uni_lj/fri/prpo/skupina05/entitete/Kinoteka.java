@@ -25,7 +25,7 @@ public class Kinoteka implements IdentifiableEntity {
 
     @Column(name = "spletna_stran")
     private String spletnaStran;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "film_id")
     private List<Film> filmi;
 

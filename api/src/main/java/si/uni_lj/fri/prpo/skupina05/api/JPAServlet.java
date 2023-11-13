@@ -38,7 +38,6 @@ public class JPAServlet extends HttpServlet {
         }
 
         writer.println(filmiZrno.getFilmById(1).get().getIme());
-        filmiZrno.deleteFilmById(1);
 
         List<Kinoteka> kinoteke = this.kinotekaZrno.getKinoteke();
 

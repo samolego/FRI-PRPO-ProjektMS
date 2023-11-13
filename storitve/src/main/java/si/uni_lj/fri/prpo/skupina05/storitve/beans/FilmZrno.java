@@ -7,6 +7,7 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -39,5 +40,10 @@ public class FilmZrno extends EntityBean<Film> {
 
     public Optional<Film> getFilmById(int id) {
         return this.getEntityById(id, Film.class);
+    }
+
+    @Transactional
+    public void deleteFilmById(int id) {
+        this.deleteEntityById(id, Film.class);
     }
 }

@@ -13,16 +13,16 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class KinotekaZrno extends EntityBean<Kinoteka> {
 
-    private final Logger LOG = Logger.getLogger(KinotekaZrno.class.getName());
+    private final Logger LOG = Logger.getLogger(this.getClass().getName());
 
     @PostConstruct
     public void init() {
-        LOG.info("Inicializacija zrna " + KinotekaZrno.class.getSimpleName() + ".");
+        LOG.info("Inicializacija zrna " + this.getClass().getSimpleName() + ".");
     }
 
     @PreDestroy
     public void destroy() {
-        LOG.info("Deinicializacija zrna " + KinotekaZrno.class.getSimpleName() + ".");
+        LOG.info("Deinicializacija zrna " + this.getClass().getSimpleName() + ".");
     }
 
     @PersistenceContext(unitName = "priporocila-jpa")

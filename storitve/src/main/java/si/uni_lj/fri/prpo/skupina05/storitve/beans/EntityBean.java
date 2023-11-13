@@ -8,16 +8,18 @@ import java.util.Optional;
 
 public abstract class EntityBean<T extends IdentifiableEntity> {
 
+    @Transactional(Transactional.TxType.MANDATORY)
     protected void deleteEntityById(int id, Class<T> clas) {
         final var entity = this.getEntityById(id, clas);
         entity.ifPresent(this.getEntityManager()::remove);
     }
 
-    @Transactional
+    @Transactional(Transactional.TxType.MANDATORY)
     protected Optional<T> getEntityById(int id, Class<T> clas) {
         return Optional.ofNullable(this.getEntityManager().find(clas, id));
     }
 
+    @Transactional
     public void insertEntity(T entity) {
         this.getEntityManager().persist(entity);
     }

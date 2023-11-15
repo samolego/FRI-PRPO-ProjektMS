@@ -13,6 +13,8 @@ import java.util.List;
 
                 @NamedQuery(name = "Kinoteka.getSpletnaStran", query = "SELECT k.spletnaStran FROM kinoteka k WHERE k.id = :id"),
                 @NamedQuery(name = "Kinoteka.getFilmi", query = "SELECT k.filmi FROM kinoteka k WHERE k.id = :id"),
+                @NamedQuery(name = "Kinoteka.getByIme", query = "SELECT k FROM kinoteka k WHERE k.ime = :ime"),
+                @NamedQuery(name = "Kinoteka.getBySpletnaStran", query = "SELECT k FROM kinoteka k WHERE k.spletnaStran = :spletnaStran"),
         }
 )
 public class Kinoteka implements IdentifiableEntity {

@@ -2,9 +2,7 @@ package si.uni_lj.fri.prpo.skupina05.api;
 
 import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
-import si.uni_lj.fri.prpo.skupina05.storitve.beans.FilmZrno;
-import si.uni_lj.fri.prpo.skupina05.storitve.beans.KinotekaZrno;
-import si.uni_lj.fri.prpo.skupina05.storitve.beans.ZanrZrno;
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.*;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +23,13 @@ public class JPAServlet extends HttpServlet {
 
     @Inject
     private KinotekaZrno kinotekaZrno;
+
+    @Inject
+    private UpravljanjeKinotekZrno upravljanjeKinotekZrno;
+
+    @Inject
+    private UpravljanjeUporabnikovZrno upravljanjeUporabnikovZrno;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 

@@ -7,7 +7,10 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -35,4 +38,33 @@ public class KinotekaZrno extends EntityBean<Kinoteka> {
     protected EntityManager getEntityManager() {
         return em;
     }
+
+    @Transactional
+    public void deleteKinotekaById(int id) { this.deleteEntityById(id, Kinoteka.class);}
+
+    public Optional<Kinoteka> getKinotekaByIme(String ime) {
+        return this.em.createNamedQuery("Kinoteka.getByIme", Kinoteka.class).setParameter("ime", ime).getResultStream().findFirst();
+    }
+
+    @Transactional
+    public Kinoteka getKinotekaBySpletnaStran(String spletnaStran) {
+        Query q = this.em.createNamedQuery("Kinoteka.getBySpletnaStran");
+        q.setParameter("spletnaStran", spletnaStran);
+        return (Kinoteka) q.getSingleResult();
+    }
+
+    @Transactional
+    public List<Kinoteka> getKinotekeWithSpletnaStran(String spletnaStran) {
+        Query q = this.em.createNamedQuery("Kinoteka.getBySpletnaStran");
+        q.setParameter("spletnaStran", spletnaStran);
+        List<Kinoteka> list=  q.getResultList();
+        if (list.isEmpty()) return null;
+        return list;
+    }
+
+    @Transactional
+    public void updateKinoteka(int id, Kinoteka kinoteka) {
+        this.updateEntity(id, kinoteka);
+    }
+
 }

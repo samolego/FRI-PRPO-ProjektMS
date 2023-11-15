@@ -50,16 +50,15 @@ public class KinotekaZrno extends EntityBean<Kinoteka> {
     public Kinoteka getKinotekaBySpletnaStran(String spletnaStran) {
         Query q = this.em.createNamedQuery("Kinoteka.getBySpletnaStran");
         q.setParameter("spletnaStran", spletnaStran);
-        return (Kinoteka) q.getSingleResult();
+        Optional<Kinoteka> kinoteka = q.getResultStream().findFirst();
+        return kinoteka.get();
     }
 
     @Transactional
-    public List<Kinoteka> getKinotekeWithSpletnaStran(String spletnaStran) {
+    public Optional<Kinoteka> getKinotekaWithSpletnaStran(String spletnaStran) {
         Query q = this.em.createNamedQuery("Kinoteka.getBySpletnaStran");
         q.setParameter("spletnaStran", spletnaStran);
-        List<Kinoteka> list=  q.getResultList();
-        if (list.isEmpty()) return null;
-        return list;
+        return q.getResultStream().findFirst();
     }
 
     @Transactional

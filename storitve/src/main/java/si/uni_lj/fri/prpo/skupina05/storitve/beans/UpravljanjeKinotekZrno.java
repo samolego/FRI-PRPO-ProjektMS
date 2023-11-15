@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 
 @ApplicationScoped
 public class UpravljanjeKinotekZrno {
-    //private UUID idZrna = UUID.randomUUID();
     private final Logger LOG = Logger.getLogger(UpravljanjeKinotekZrno.class.getName());
 
     @Inject
@@ -37,7 +36,7 @@ public class UpravljanjeKinotekZrno {
         Matcher matcher = pattern.matcher(kinotekaDTO.spletnaStran());
         boolean matchFoundSpletnaStran = matcher.find();
         boolean kinotekaExists = false;
-        if (kinotekaZrno.getKinotekeWithSpletnaStran(kinotekaDTO.spletnaStran()) != null ) kinotekaExists = true;
+        if (kinotekaZrno.getKinotekaWithSpletnaStran(kinotekaDTO.spletnaStran()).isPresent()) kinotekaExists = true;
         if(!matchFoundSpletnaStran && !kinotekaExists) {
             LOG.info("Neustrezna oblika spletne strani.");
         } else {

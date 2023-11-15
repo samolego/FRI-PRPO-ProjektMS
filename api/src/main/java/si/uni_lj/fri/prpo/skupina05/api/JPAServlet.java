@@ -3,6 +3,7 @@ package si.uni_lj.fri.prpo.skupina05.api;
 import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.*;
+import si.uni_lj.fri.prpo.skupina05.storitve.dtos.KinotekaDTO;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
@@ -45,6 +46,9 @@ public class JPAServlet extends HttpServlet {
         writer.println(filmiZrno.getFilmById(1).get().getIme());
 
         List<Kinoteka> kinoteke = this.kinotekaZrno.getKinoteke();
+
+        //KinotekaDTO nova = new KinotekaDTO("Lily", "www.cinecity.com");
+        //upravljanjeKinotekZrno.spremeniIme(nova);
 
         // izpis kinotek na spletno stran
         writer.println("<h1>Kinoteke</h1>");

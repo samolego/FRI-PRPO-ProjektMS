@@ -6,14 +6,17 @@ import si.uni_lj.fri.prpo.skupina05.storitve.dtos.KinotekaDTO;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @ApplicationScoped
 public class UpravljanjeKinotekZrno {
+    //private UUID idZrna = UUID.randomUUID();
     private final Logger LOG = Logger.getLogger(UpravljanjeKinotekZrno.class.getName());
 
     @Inject
@@ -25,7 +28,9 @@ public class UpravljanjeKinotekZrno {
     @PreDestroy
     public void destroy() { LOG.info("Deinicializacija zrna " + UpravljanjeKinotekZrno.class.getSimpleName() + "."); }
 
+    @RequestScoped
     public void dodajKinoteko(KinotekaDTO kinotekaDTO) {
+        UUID idMetode = UUID.randomUUID();
         var kinoteka = kinotekaDTO.toKinoteka();
 
         Pattern pattern = Pattern.compile("www.\\w+.\\w+");
@@ -42,13 +47,17 @@ public class UpravljanjeKinotekZrno {
                 LOG.info("Kinoteka že obstaja.");
             }
         }
+        LOG.info(String.valueOf(idMetode));
     }
 
+    @RequestScoped
     public void spremeniIme(KinotekaDTO kinotekaDTO) {
+        UUID idMetode = UUID.randomUUID();
         Optional<Kinoteka> kinoteka = kinotekaDTO.toKinoteka();
         Kinoteka kinoteka2 = kinotekaDTO.toKinotekaClass();
         if(kinoteka.isPresent()) {
             kinotekaZrno.updateKinoteka(kinotekaZrno.getKinotekaBySpletnaStran(kinotekaDTO.spletnaStran()).getId(), kinoteka2);
         }
+        LOG.info(String.valueOf(idMetode));
     }
 }

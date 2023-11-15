@@ -54,8 +54,8 @@ public class UpravljanjeKinotekZrno {
         UUID idMetode = UUID.randomUUID();
         Optional<Kinoteka> kinoteka = kinotekaDTO.toKinoteka();
         Kinoteka kinoteka2 = kinotekaDTO.toKinotekaClass();
-        if(kinoteka.isPresent()) {
-            kinotekaZrno.updateKinoteka(kinotekaZrno.getKinotekaBySpletnaStran(kinotekaDTO.spletnaStran()).getId(), kinoteka2);
+        if(kinoteka.isPresent() && kinotekaZrno.getKinotekaBySpletnaStran(kinotekaDTO.spletnaStran()).isPresent()) {
+            kinotekaZrno.updateKinoteka(kinotekaZrno.getKinotekaBySpletnaStran(kinotekaDTO.spletnaStran()).get().getId(), kinoteka2);
         }
         LOG.info(String.valueOf(idMetode));
     }

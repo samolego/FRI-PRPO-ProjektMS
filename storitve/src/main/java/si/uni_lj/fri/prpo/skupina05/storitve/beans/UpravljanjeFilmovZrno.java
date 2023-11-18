@@ -25,14 +25,28 @@ public class UpravljanjeFilmovZrno {
         LOG.info("Deinicializacija zrna " + UpravljanjeFilmovZrno.class.getSimpleName() + ".");
     }
 
-    public void dodajFilm(FilmDTO filmDTO) {
+    public boolean dodajFilm(FilmDTO filmDTO) {
         var film = filmDTO.toFilm();
         film.ifPresent(filmZrno::insertEntity);
+
+        return film.isPresent();
     }
 
-    public void odstraniFilm(FilmDTO filmDTO) {
-        var film = filmDTO.toFilm();
-        film.flatMap(f -> filmZrno.getFilmByIme(f.getIme()))
-                .ifPresent(film1 -> filmZrno.deleteFilmById(film1.getId()));
+    public boolean odstraniFilm(FilmDTO filmDTO) {
+        var filmData = filmDTO.toFilm();
+        var film = filmData.flatMap(f -> filmZrno.getFilmByIme(f.getIme()));
+
+        return film.map(flm -> {
+                    filmZrno.deleteFilmById(flm.getId());
+                    return true;
+                })
+                .orElse(false);
+    }
+
+    public boolean posodobiFilm(int id, FilmDTO filmData) {
+        var film = filmData.toFilm();
+        var success = film.flatMap(f -> filmZrno.updateEntity(id, f));
+
+        return success.isPresent();
     }
 }

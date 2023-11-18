@@ -26,15 +26,17 @@ public abstract class EntityBean<T extends IdentifiableEntity> {
 
 
     @Transactional
-    public void updateEntity(int id, T entity) {
+    public Optional<T> updateEntity(int id, T entity) {
         if (entity != null) {
             final var oldEntity = this.getEntityById(id, (Class<T>) entity.getClass());
 
-            oldEntity.ifPresent(old -> {
+            return oldEntity.map(old -> {
                 entity.setId(old.getId());
-                this.getEntityManager().merge(entity);
+                return this.getEntityManager().merge(entity);
             });
         }
+
+        return Optional.empty();
     }
 
     protected abstract EntityManager getEntityManager();

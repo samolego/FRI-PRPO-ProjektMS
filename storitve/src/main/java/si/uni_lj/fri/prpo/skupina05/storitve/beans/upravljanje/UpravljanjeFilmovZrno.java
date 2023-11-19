@@ -1,5 +1,6 @@
-package si.uni_lj.fri.prpo.skupina05.storitve.beans;
+package si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje;
 
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.FilmZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.dtos.FilmDTO;
 
 import javax.annotation.PostConstruct;

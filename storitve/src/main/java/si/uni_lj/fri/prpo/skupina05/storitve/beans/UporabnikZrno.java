@@ -1,6 +1,7 @@
 package si.uni_lj.fri.prpo.skupina05.storitve.beans;
 
 import si.uni_lj.fri.prpo.skupina05.entitete.Uporabnik;
+import si.uni_lj.fri.prpo.skupina05.storitve.anotacije.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -10,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.util.logging.Logger;
 
 @ApplicationScoped
+@BeleziKlice
 public class UporabnikZrno extends EntityBean<Uporabnik> {
     private final Logger LOG = Logger.getLogger(UporabnikZrno.class.getName());
 

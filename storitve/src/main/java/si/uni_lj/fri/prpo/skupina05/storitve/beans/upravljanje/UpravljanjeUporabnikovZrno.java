@@ -1,5 +1,6 @@
-package si.uni_lj.fri.prpo.skupina05.storitve.beans;
+package si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje;
 
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.UporabnikZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.dtos.UporabnikDTO;
 
 import javax.annotation.PostConstruct;

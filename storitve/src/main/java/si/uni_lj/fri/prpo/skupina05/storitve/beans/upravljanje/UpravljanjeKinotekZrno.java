@@ -1,6 +1,7 @@
-package si.uni_lj.fri.prpo.skupina05.storitve.beans;
+package si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje;
 
 import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.KinotekaZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.dtos.KinotekaDTO;
 
 import javax.annotation.PostConstruct;
@@ -35,8 +36,7 @@ public class UpravljanjeKinotekZrno {
         Pattern pattern = Pattern.compile("www.\\w+.\\w+");
         Matcher matcher = pattern.matcher(kinotekaDTO.spletnaStran());
         boolean matchFoundSpletnaStran = matcher.find();
-        boolean kinotekaExists = false;
-        if (kinotekaZrno.getKinotekaWithSpletnaStran(kinotekaDTO.spletnaStran()).isPresent()) kinotekaExists = true;
+        boolean kinotekaExists = kinotekaZrno.getKinotekaWithSpletnaStran(kinotekaDTO.spletnaStran()).isPresent();
         if(!matchFoundSpletnaStran && !kinotekaExists) {
             LOG.info("Neustrezna oblika spletne strani.");
         } else {

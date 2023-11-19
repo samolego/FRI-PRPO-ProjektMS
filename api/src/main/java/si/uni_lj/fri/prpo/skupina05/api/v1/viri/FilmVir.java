@@ -2,7 +2,7 @@ package si.uni_lj.fri.prpo.skupina05.api.v1.viri;
 
 import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.FilmZrno;
-import si.uni_lj.fri.prpo.skupina05.storitve.beans.UpravljanjeFilmovZrno;
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeFilmovZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.dtos.FilmDTO;
 
 import javax.enterprise.context.ApplicationScoped;

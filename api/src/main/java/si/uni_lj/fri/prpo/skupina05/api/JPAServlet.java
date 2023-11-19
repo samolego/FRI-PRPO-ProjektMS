@@ -2,7 +2,11 @@ package si.uni_lj.fri.prpo.skupina05.api;
 
 import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
-import si.uni_lj.fri.prpo.skupina05.storitve.beans.*;
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.FilmZrno;
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.KinotekaZrno;
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.ZanrZrno;
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeKinotekZrno;
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeUporabnikovZrno;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;

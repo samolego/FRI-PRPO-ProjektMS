@@ -1,6 +1,7 @@
 package si.uni_lj.fri.prpo.skupina05.storitve.beans;
 
 import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
+import si.uni_lj.fri.prpo.skupina05.storitve.anotacije.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
+@BeleziKlice
 public class KinotekaZrno extends EntityBean<Kinoteka> {
 
     private final Logger LOG = Logger.getLogger(KinotekaZrno.class.getName());

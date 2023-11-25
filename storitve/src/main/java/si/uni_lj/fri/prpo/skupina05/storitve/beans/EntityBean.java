@@ -19,13 +19,13 @@ public abstract class EntityBean<T extends IdentifiableEntity> {
         return Optional.ofNullable(this.getEntityManager().find(clas, id));
     }
 
-    @Transactional
+    @Transactional(Transactional.TxType.MANDATORY)
     public void insertEntity(T entity) {
         this.getEntityManager().persist(entity);
     }
 
 
-    @Transactional
+    @Transactional(Transactional.TxType.MANDATORY)
     public Optional<T> updateEntity(int id, T entity) {
         if (entity != null) {
             final var oldEntity = this.getEntityById(id, (Class<T>) entity.getClass());

@@ -1,6 +1,7 @@
 package si.uni_lj.fri.prpo.skupina05.entitete;
 
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,10 @@ public class Zanr implements IdentifiableEntity {
 
     private String ime;
 
-    // Ko izbrišemp žanr, se izbrišejo tudi filmi, ki imajo ta žanr
+    // Ko izbrišemo žanr, se izbrišejo tudi filmi, ki imajo ta žanr
     @OneToMany(mappedBy = "zanr", cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
+    @JsonbTransient
     private List<Film> filmi;
 
     public Integer getId() { return id; }

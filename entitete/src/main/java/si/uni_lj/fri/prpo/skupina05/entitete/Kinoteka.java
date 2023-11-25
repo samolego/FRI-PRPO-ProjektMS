@@ -1,6 +1,7 @@
 package si.uni_lj.fri.prpo.skupina05.entitete;
 
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class Kinoteka implements IdentifiableEntity {
     private String spletnaStran;
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "film_id")
+    @JsonbTransient
     private List<Film> filmi;
 
     public Integer getId() { return id; }

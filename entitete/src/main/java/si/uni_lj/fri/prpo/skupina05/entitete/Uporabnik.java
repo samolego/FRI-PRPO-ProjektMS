@@ -1,6 +1,7 @@
 package si.uni_lj.fri.prpo.skupina05.entitete;
 
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +36,12 @@ public class Uporabnik implements IdentifiableEntity {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "film_id")
+    @JsonbTransient
     private List<Film> filmiPogledano;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "film_id")
+    @JsonbTransient
     private List<Film> filmiVsec;
 
 

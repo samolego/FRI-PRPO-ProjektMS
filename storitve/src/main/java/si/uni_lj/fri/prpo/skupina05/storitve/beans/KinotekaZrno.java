@@ -48,6 +48,8 @@ public class KinotekaZrno extends EntityBean<Kinoteka> {
         return this.em.createNamedQuery("Kinoteka.getByIme", Kinoteka.class).setParameter("ime", ime).getResultStream().findFirst();
     }
 
+    public Optional<Kinoteka> getKinotekaById(int id) { return this.getEntityById(id, Kinoteka.class); }
+
     @Transactional
     public Optional<Kinoteka> getKinotekaBySpletnaStran(String spletnaStran) {
         Query q = this.em.createNamedQuery("Kinoteka.getBySpletnaStran");

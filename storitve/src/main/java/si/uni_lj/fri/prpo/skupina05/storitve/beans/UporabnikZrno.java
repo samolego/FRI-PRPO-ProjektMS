@@ -1,5 +1,6 @@
 package si.uni_lj.fri.prpo.skupina05.storitve.beans;
 
+import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.entitete.Uporabnik;
 import si.uni_lj.fri.prpo.skupina05.storitve.anotacije.BeleziKlice;
 
@@ -8,6 +9,9 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -32,4 +36,17 @@ public class UporabnikZrno extends EntityBean<Uporabnik> {
     protected EntityManager getEntityManager() {
         return em;
     }
+
+    public Optional<Uporabnik> getUporabnikById(int id) { return this.getEntityById(id, Uporabnik.class); }
+
+    public List<Uporabnik> getUporabniki() { return this.em.createNamedQuery("Uporabnik.getAll", Uporabnik.class).getResultList(); }
+
+    public void deleteUporabnikById(int id) {
+        this.deleteEntityById(id, Uporabnik.class);
+    }
+
+    public void dodajUporabnika(Uporabnik uporabnik) {
+        insertEntity(uporabnik);
+    }
+
 }

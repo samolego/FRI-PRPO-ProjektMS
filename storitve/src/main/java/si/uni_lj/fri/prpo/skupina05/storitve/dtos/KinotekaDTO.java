@@ -4,7 +4,27 @@ import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
 
 import java.util.Optional;
 
-public record KinotekaDTO(String ime, String spletnaStran) {
+public class KinotekaDTO {
+    private String ime;
+    private String spletnaStran;
+
+    public String getIme() {
+        return ime;
+    }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
+    public String getSpletnaStran() {
+        return spletnaStran;
+    }
+
+    public void setSpletnaStran(String spletnaStran) {
+        this.spletnaStran = spletnaStran;
+    }
+}
+/*public record KinotekaDTO(String ime, String spletnaStran) {
 
     public Optional<Kinoteka> toKinoteka() {
         if(ime == null || spletnaStran == null) {
@@ -34,4 +54,4 @@ public record KinotekaDTO(String ime, String spletnaStran) {
     public String spletnaStran() {
         return spletnaStran;
     }
-}
+}*/

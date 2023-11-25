@@ -39,7 +39,7 @@ public class ZanrZrno extends EntityBean<Zanr> {
         return em;
     }
 
-    @Transactional
+    //@Transactional
     public void deleteZanrById(int id) {
         this.deleteEntityById(id, Zanr.class);
     }

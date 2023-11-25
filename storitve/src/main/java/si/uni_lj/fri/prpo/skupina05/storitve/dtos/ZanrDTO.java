@@ -1,19 +1,13 @@
 package si.uni_lj.fri.prpo.skupina05.storitve.dtos;
 
-import si.uni_lj.fri.prpo.skupina05.entitete.Zanr;
+public class ZanrDTO {
+    private String ime;
 
-import java.util.Optional;
+    public String getIme() {
+        return ime;
+    }
 
-public record ZanrDTO(String name) {
-
-    public Optional<Zanr> toZanr() {
-        if (name == null || name.isBlank()) {
-            return Optional.empty();
-        }
-
-        var zanr = new Zanr();
-        zanr.setIme(name);
-
-        return Optional.of(zanr);
+    public void setIme(String ime) {
+        this.ime = ime;
     }
 }

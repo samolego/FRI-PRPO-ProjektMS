@@ -71,7 +71,7 @@ public class FilmVir {
     @PUT
     @Path("{id}")
     public Response updateFilm(@PathParam("id") int id, FilmDTO filmData) {
-        var film = filmData.toFilm();
+        var film = upravljanjeFilmovZrno.toFilm(filmData);
 
         if (film.isPresent()) {
             var success = upravljanjeFilmovZrno.posodobiFilm(id, filmData);

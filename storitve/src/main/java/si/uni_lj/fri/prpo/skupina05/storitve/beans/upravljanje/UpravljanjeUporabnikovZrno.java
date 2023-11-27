@@ -26,9 +26,6 @@ public class UpravljanjeUporabnikovZrno {
     @Inject
     private UporabnikZrno uporabnikZrno;
 
-    @Inject
-    private FilmZrno filmZrno;
-
 
     @PostConstruct
     public void init() { LOG.info("Inicializacija zrna " + UpravljanjeUporabnikovZrno.class.getSimpleName() + ".");}
@@ -38,18 +35,12 @@ public class UpravljanjeUporabnikovZrno {
 
 
     public Optional<Uporabnik> toUporabnik(UporabnikDTO uporabnikDTO) {
-        Uporabnik uporabnik = new Uporabnik();
 
         String ime = uporabnikDTO.getIme();
-        uporabnik.setIme(ime);
         String priimek = uporabnikDTO.getPriimek();
-        uporabnik.setPriimek(priimek);
         String uporabniskoIme = uporabnikDTO.getUporabniskoIme();
-        uporabnik.setUporabniskoIme(uporabniskoIme);
         String email = uporabnikDTO.getEmail();
-        uporabnik.setEmail(email);
         String geslo = uporabnikDTO.getGeslo();
-        uporabnik.setGeslo(geslo);
 
         if(ime == null || ime.isBlank() ||
                 priimek == null || priimek.isBlank() ||
@@ -75,6 +66,14 @@ public class UpravljanjeUporabnikovZrno {
             LOG.info("Neustrezna oblika gesla.");
             return Optional.empty();
         }
+
+        Uporabnik uporabnik = new Uporabnik();
+
+        uporabnik.setIme(ime);
+        uporabnik.setPriimek(priimek);
+        uporabnik.setUporabniskoIme(uporabniskoIme);
+        uporabnik.setEmail(email);
+        uporabnik.setGeslo(geslo);
 
         return Optional.of(uporabnik);
     }

@@ -88,9 +88,9 @@ public class UpravljanjeKinotekZrno {
     public boolean spremeniIme(KinotekaDTO kinotekaDTO) {
         UUID idMetode = UUID.randomUUID();
         Optional<Kinoteka> kinoteka = toKinoteka(kinotekaDTO);
-        Kinoteka kinoteka2 = toKinoteka(kinotekaDTO).get();
+        //Kinoteka kinoteka2 = toKinoteka(kinotekaDTO).get();
         if(kinoteka.isPresent() && kinotekaZrno.getKinotekaBySpletnaStran(kinotekaDTO.getSpletnaStran()).isPresent()) {
-            kinotekaZrno.updateKinoteka(kinotekaZrno.getKinotekaBySpletnaStran(kinotekaDTO.getSpletnaStran()).get().getId(), kinoteka2);
+            kinotekaZrno.updateKinoteka(kinotekaZrno.getKinotekaBySpletnaStran(kinotekaDTO.getSpletnaStran()).get().getId(), kinoteka.get());
         }
         LOG.info(String.valueOf(idMetode));
         return kinoteka.isPresent();

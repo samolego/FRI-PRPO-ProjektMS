@@ -75,7 +75,7 @@ public class FilmVir {
 
         if (film.isPresent()) {
             var success = upravljanjeFilmovZrno.posodobiFilm(id, filmData);
-            return Response.ok().build();
+            return Response.ok(success).build();
         }
 
         return Response.status(Response.Status.NOT_FOUND).build();

@@ -1,6 +1,6 @@
 package si.uni_lj.fri.prpo.skupina05.api.v1.viri;
 
-import si.uni_lj.fri.prpo.skupina05.entitete.Film;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.uni_lj.fri.prpo.skupina05.entitete.Uporabnik;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.UporabnikZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeUporabnikovZrno;
@@ -8,10 +8,11 @@ import si.uni_lj.fri.prpo.skupina05.storitve.dtos.UporabnikDTO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.Persistence;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Path("uporabniki")
@@ -19,6 +20,9 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
 public class UporabnikVir {
+
+    @Context
+    private UriInfo uriInfo;
 
     @Inject
     private UporabnikZrno uporabnikZrno;
@@ -28,7 +32,8 @@ public class UporabnikVir {
 
     @GET
     public Response getUporabniki() {
-        List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
+        final var query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki(query);
 
         return Response.ok(uporabniki)
                 .header("X-Total-Count", uporabniki.size())

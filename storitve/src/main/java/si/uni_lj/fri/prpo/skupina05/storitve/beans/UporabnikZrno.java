@@ -1,6 +1,6 @@
 package si.uni_lj.fri.prpo.skupina05.storitve.beans;
 
-import si.uni_lj.fri.prpo.skupina05.entitete.Film;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.uni_lj.fri.prpo.skupina05.entitete.Uporabnik;
 import si.uni_lj.fri.prpo.skupina05.storitve.anotacije.BeleziKlice;
 
@@ -9,7 +9,6 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -49,4 +48,7 @@ public class UporabnikZrno extends EntityBean<Uporabnik> {
         insertEntity(uporabnik);
     }
 
+    public List<Uporabnik> getUporabniki(QueryParameters query) {
+        return this.getEntities(query, Uporabnik.class);
+    }
 }

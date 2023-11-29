@@ -1,9 +1,12 @@
 package si.uni_lj.fri.prpo.skupina05.storitve.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.uni_lj.fri.prpo.skupina05.entitete.IdentifiableEntity;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 public abstract class EntityBean<T extends IdentifiableEntity> {
@@ -28,6 +31,7 @@ public abstract class EntityBean<T extends IdentifiableEntity> {
     @Transactional(Transactional.TxType.MANDATORY)
     public Optional<T> updateEntity(int id, T entity) {
         if (entity != null) {
+            //noinspection unchecked
             final var oldEntity = this.getEntityById(id, (Class<T>) entity.getClass());
 
             return oldEntity.map(old -> {
@@ -40,4 +44,8 @@ public abstract class EntityBean<T extends IdentifiableEntity> {
     }
 
     protected abstract EntityManager getEntityManager();
+
+    protected List<T> getEntities(QueryParameters query, Class<T> clas) {
+        return JPAUtils.queryEntities(this.getEntityManager(), clas, query);
+    }
 }

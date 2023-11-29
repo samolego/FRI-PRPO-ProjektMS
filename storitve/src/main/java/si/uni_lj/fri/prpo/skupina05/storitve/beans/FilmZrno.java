@@ -1,5 +1,6 @@
 package si.uni_lj.fri.prpo.skupina05.storitve.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.storitve.anotacije.BeleziKlice;
 
@@ -32,7 +33,8 @@ public class FilmZrno extends EntityBean<Film> {
     private EntityManager em;
 
     public List<Film> getFilmi() {
-        return this.em.createNamedQuery("Film.getAll", Film.class).getResultList();
+        final var query = new QueryParameters();
+        return this.getFilmi(query);
     }
 
     @Override
@@ -51,5 +53,9 @@ public class FilmZrno extends EntityBean<Film> {
     @Transactional
     public void deleteFilmById(int id) {
         this.deleteEntityById(id, Film.class);
+    }
+
+    public List<Film> getFilmi(QueryParameters query) {
+        return this.getEntities(query, Film.class);
     }
 }

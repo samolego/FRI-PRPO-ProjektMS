@@ -1,5 +1,6 @@
 package si.uni_lj.fri.prpo.skupina05.storitve.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
 import si.uni_lj.fri.prpo.skupina05.storitve.anotacije.BeleziKlice;
 
@@ -69,4 +70,7 @@ public class KinotekaZrno extends EntityBean<Kinoteka> {
         this.updateEntity(id, kinoteka);
     }
 
+    public List<Kinoteka> getKinoteke(QueryParameters query) {
+        return this.getEntities(query, Kinoteka.class);
+    }
 }

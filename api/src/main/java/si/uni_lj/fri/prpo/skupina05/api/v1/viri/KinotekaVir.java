@@ -1,23 +1,28 @@
 package si.uni_lj.fri.prpo.skupina05.api.v1.viri;
 
-import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeKinotekZrno;
-import si.uni_lj.fri.prpo.skupina05.storitve.dtos.KinotekaDTO;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.KinotekaZrno;
+import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeKinotekZrno;
+import si.uni_lj.fri.prpo.skupina05.storitve.dtos.KinotekaDTO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
-import java.util.ResourceBundle;
 
 @Path("kinoteke")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
 public class KinotekaVir {
+
+    @Context
+    protected UriInfo uriInfo;
 
     @Inject
     private KinotekaZrno kinotekaZrno;
@@ -27,7 +32,8 @@ public class KinotekaVir {
 
     @GET
     public Response getKinoteke() {
-        List<Kinoteka> kinoteke = kinotekaZrno.getKinoteke();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Kinoteka> kinoteke = kinotekaZrno.getKinoteke(query);
 
         return Response.ok(kinoteke)
                 .header("X-Total-Count", kinoteke.size())
@@ -58,7 +64,7 @@ public class KinotekaVir {
     public Response createKinoteka(KinotekaDTO kinotekaData) {
         var status = upravljanjeKinotekZrno.dodajKinoteko(kinotekaData);
 
-        if(status) {
+        if (status) {
             return Response.status(Response.Status.CREATED).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
@@ -81,7 +87,7 @@ public class KinotekaVir {
     public Response deleteKinoteka(@PathParam("id") int id) {
         var success = upravljanjeKinotekZrno.izbrisiKinoteko(id);
 
-        if(!success) {
+        if (!success) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
@@ -92,11 +98,9 @@ public class KinotekaVir {
     public Response updateNameKinoteka(KinotekaDTO kinotekaData) {
 
         var success = upravljanjeKinotekZrno.spremeniIme(kinotekaData);
-        if(!success) {
+        if (!success) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         return Response.ok().build();
     }
-
-
 }

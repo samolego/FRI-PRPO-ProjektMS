@@ -1,17 +1,18 @@
 package si.uni_lj.fri.prpo.skupina05.api.v1.viri;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.uni_lj.fri.prpo.skupina05.entitete.Zanr;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.ZanrZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeZanrovZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.dtos.ZanrDTO;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.sql.PreparedStatement;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @ApplicationScoped
@@ -19,6 +20,9 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ZanrVir {
+
+    @Context
+    private UriInfo uriInfo;
 
     @Inject
     private ZanrZrno zanrZrno;
@@ -28,7 +32,8 @@ public class ZanrVir {
 
     @GET
     public Response getZanri() {
-        List<Zanr> zanri = zanrZrno.getZanri();
+        final var query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Zanr> zanri = zanrZrno.getZanri(query);
 
         return Response.ok(zanri)
                 .header("X-Total-Conut", zanri.size())

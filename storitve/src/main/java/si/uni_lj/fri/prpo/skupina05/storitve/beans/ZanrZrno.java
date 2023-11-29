@@ -1,5 +1,6 @@
 package si.uni_lj.fri.prpo.skupina05.storitve.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.uni_lj.fri.prpo.skupina05.entitete.Zanr;
 import si.uni_lj.fri.prpo.skupina05.storitve.anotacije.BeleziKlice;
 
@@ -8,7 +9,6 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -50,5 +50,9 @@ public class ZanrZrno extends EntityBean<Zanr> {
 
     public Optional<Zanr> getZanrByName(String ime) {
         return this.em.createNamedQuery("Zanr.getByIme", Zanr.class).setParameter("ime", ime).getResultStream().findFirst();
+    }
+
+    public List<Zanr> getZanri(QueryParameters query) {
+        return this.getEntities(query, Zanr.class);
     }
 }

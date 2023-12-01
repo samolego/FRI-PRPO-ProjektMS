@@ -3,6 +3,8 @@ package si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje;
 import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.KinotekaZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.dtos.KinotekaDTO;
+import si.uni_lj.fri.prpo.skupina05.storitve.dtos.izjeme.IzjemaBadRequestDTO;
+import si.uni_lj.fri.prpo.skupina05.storitve.dtos.izjeme.IzjemaNotFoundDTO;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -29,7 +31,7 @@ public class UpravljanjeKinotekZrno {
     @PreDestroy
     public void destroy() { LOG.info("Deinicializacija zrna " + UpravljanjeKinotekZrno.class.getSimpleName() + "."); }
 
-    public Optional<Kinoteka> toKinoteka(KinotekaDTO kinotekaDTO) {
+    public Optional<Kinoteka> toKinoteka(KinotekaDTO kinotekaDTO) throws IzjemaBadRequestDTO {
 
         String ime = kinotekaDTO.getIme();
         String spletnaStran = kinotekaDTO.getSpletnaStran();
@@ -37,7 +39,8 @@ public class UpravljanjeKinotekZrno {
         if(ime == null || ime.isBlank() ||
                 spletnaStran == null || spletnaStran.isBlank()
         ) {
-            return Optional.empty();
+            throw new IzjemaBadRequestDTO("Prosimo, izpolnite vsa zahtevana polja.");
+            //return Optional.empty();
         }
 
         Pattern pattern = Pattern.compile("\\w+\\.[a-zA-Z]{2,5}$");
@@ -45,7 +48,8 @@ public class UpravljanjeKinotekZrno {
         boolean matchFound = matcher.find();
         if(!matchFound) {
             LOG.info("Neustrezna oblika spletne strani.");
-            return Optional.empty();
+            throw new IzjemaBadRequestDTO("Neustrezna oblika spletne strani.");
+            //return Optional.empty();
         }
 
         Kinoteka kinoteka = new Kinoteka();
@@ -57,13 +61,14 @@ public class UpravljanjeKinotekZrno {
 
     @RequestScoped
     @Transactional
-    public boolean dodajKinoteko(KinotekaDTO kinotekaDTO) {
+    public boolean dodajKinoteko(KinotekaDTO kinotekaDTO) throws IzjemaBadRequestDTO {
         UUID idMetode = UUID.randomUUID();
         var kinoteka = toKinoteka(kinotekaDTO);
 
         if(!kinoteka.isPresent()) {
             LOG.info("Ne najdem kinoteke.");
-            return false;
+            throw new IzjemaBadRequestDTO("Ne najdem kinoteke.");
+            //return false;
         }
 
         kinotekaZrno.insertEntity(kinoteka.get());
@@ -71,12 +76,13 @@ public class UpravljanjeKinotekZrno {
     }
 
     @Transactional
-    public boolean izbrisiKinoteko(int id) {
+    public boolean izbrisiKinoteko(int id) throws IzjemaNotFoundDTO {
         var kinoteka = kinotekaZrno.getKinotekaById(id);
 
         if(!kinoteka.isPresent()) {
             LOG.info("Ne najdem kinoteke.");
-            return false;
+            throw new IzjemaNotFoundDTO("Ne najdem kinoteke.");
+            //return false;
         }
 
         kinotekaZrno.deleteKinotekaById(id);
@@ -85,12 +91,14 @@ public class UpravljanjeKinotekZrno {
 
     @RequestScoped
     @Transactional
-    public boolean spremeniIme(KinotekaDTO kinotekaDTO) {
+    public boolean spremeniIme(KinotekaDTO kinotekaDTO) throws IzjemaNotFoundDTO {
         UUID idMetode = UUID.randomUUID();
         Optional<Kinoteka> kinoteka = toKinoteka(kinotekaDTO);
         //Kinoteka kinoteka2 = toKinoteka(kinotekaDTO).get();
         if(kinoteka.isPresent() && kinotekaZrno.getKinotekaBySpletnaStran(kinotekaDTO.getSpletnaStran()).isPresent()) {
             kinotekaZrno.updateKinoteka(kinotekaZrno.getKinotekaBySpletnaStran(kinotekaDTO.getSpletnaStran()).get().getId(), kinoteka.get());
+        } else {
+            throw new IzjemaNotFoundDTO("Ne najdem kinoteke.");
         }
         LOG.info(String.valueOf(idMetode));
         return kinoteka.isPresent();

@@ -1,18 +1,16 @@
 package si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje;
 
-import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.entitete.Uporabnik;
-import si.uni_lj.fri.prpo.skupina05.storitve.beans.FilmZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.UporabnikZrno;
-import si.uni_lj.fri.prpo.skupina05.storitve.dtos.FilmDTO;
 import si.uni_lj.fri.prpo.skupina05.storitve.dtos.UporabnikDTO;
+import si.uni_lj.fri.prpo.skupina05.storitve.dtos.izjeme.IzjemaBadRequestDTO;
+import si.uni_lj.fri.prpo.skupina05.storitve.dtos.izjeme.IzjemaNotFoundDTO;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -34,7 +32,7 @@ public class UpravljanjeUporabnikovZrno {
     public void destroy() { LOG.info("Deinicializacija zrna " + UpravljanjeUporabnikovZrno.class.getSimpleName() + "."); }
 
 
-    public Optional<Uporabnik> toUporabnik(UporabnikDTO uporabnikDTO) {
+    public Optional<Uporabnik> toUporabnik(UporabnikDTO uporabnikDTO) throws IzjemaBadRequestDTO {
 
         String ime = uporabnikDTO.getIme();
         String priimek = uporabnikDTO.getPriimek();
@@ -48,7 +46,9 @@ public class UpravljanjeUporabnikovZrno {
                 email == null || email.isBlank() ||
                 geslo == null || geslo.isBlank()
         ) {
-            return Optional.empty();
+            throw new IzjemaBadRequestDTO("Prosimo, izpolnite vsa zahtevana polja.");
+            //return Optional.empty();
+
         }
 
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$");
@@ -56,7 +56,8 @@ public class UpravljanjeUporabnikovZrno {
         boolean matchFoundEmail = matcher.find();
         if(!matchFoundEmail) {
             LOG.info("Neustrezna oblika elektronskega naslova.");
-            return Optional.empty();
+            throw new IzjemaBadRequestDTO("Neustrezna oblika elektronskega naslova.");
+            //return Optional.empty();
         }
 
         Pattern pattern1 = Pattern.compile("^[a-zA-Z0-9]{7,100}$");
@@ -64,7 +65,8 @@ public class UpravljanjeUporabnikovZrno {
         boolean matchFoundPassword = matcher1.find();
         if(!matchFoundPassword) {
             LOG.info("Neustrezna oblika gesla.");
-            return Optional.empty();
+            throw new IzjemaBadRequestDTO("Neustrezna oblika gesla.");
+            //return Optional.empty();
         }
 
         Uporabnik uporabnik = new Uporabnik();
@@ -79,12 +81,13 @@ public class UpravljanjeUporabnikovZrno {
     }
 
     @Transactional
-    public boolean dodajUporabnika(UporabnikDTO uporabnikDTO) {
+    public boolean dodajUporabnika(UporabnikDTO uporabnikDTO) throws IzjemaBadRequestDTO {
         Optional<Uporabnik> uporabnikOptional = toUporabnik(uporabnikDTO);
 
         if(!uporabnikOptional.isPresent()) {
             LOG.info("Ne najdem uporabnika.");
-            return false;
+            throw new IzjemaBadRequestDTO("Ne najdem uporabnika.");
+            //return false;
         }
 
         Uporabnik uporabnik = uporabnikOptional.get();
@@ -93,12 +96,13 @@ public class UpravljanjeUporabnikovZrno {
     }
 
     @Transactional
-    public boolean izbrisiUporabnika(int id) {
+    public boolean izbrisiUporabnika(int id) throws IzjemaNotFoundDTO {
         var uporabnik = uporabnikZrno.getUporabnikById(id);
 
         if(!uporabnik.isPresent()) {
             LOG.info("Ne najdem uporabnika.");
-            return false;
+            throw new IzjemaNotFoundDTO("Ne najdem uporabnika.");
+            //return false;
         }
 
         uporabnikZrno.deleteUporabnikById(id);
@@ -106,35 +110,20 @@ public class UpravljanjeUporabnikovZrno {
     }
 
     @Transactional
-    public boolean posodobiUporabnika(int id, UporabnikDTO uporabnikDTO) {
+    public boolean posodobiUporabnika(int id, UporabnikDTO uporabnikDTO) throws IzjemaNotFoundDTO {
         Optional<Uporabnik> uporabnik = toUporabnik(uporabnikDTO);
 
         if(!uporabnik.isPresent()) {
             LOG.info("Ne najdem uporabnika.");
-            return false;
+            throw new IzjemaBadRequestDTO("Ne najdem uporabnika.");
+            //return false;
+        }
+
+        if(!uporabnikZrno.getUporabnikById(id).isPresent()) {
+            throw new IzjemaNotFoundDTO("Ne najdem uporabnika.");
         }
 
         uporabnik.flatMap(u -> uporabnikZrno.updateEntity(id, u));
         return true;
     }
-
-    /*public boolean addFilmPogledano (int id, int idFilm) {
-        Film film = filmZrno.getFilmById(idFilm).get();
-
-        List<Film> filmi = uporabnikZrno.getUporabnikById(id).get().getFilmiPogledano();
-
-        boolean success = filmi.add(film);
-
-        return success;
-    }
-
-    public boolean addFilmVsec (int id, int idFilm) {
-        Film film = filmZrno.getFilmById(idFilm).get();
-
-        List<Film> filmi = uporabnikZrno.getUporabnikById(id).get().getFilmiVsec();
-
-        boolean success = filmi.add(film);
-
-        return success;
-    }*/
 }

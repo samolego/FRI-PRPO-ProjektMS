@@ -82,14 +82,7 @@ public class ZanrVir {
         }
 
         return Response.ok().build();
-        /*var zanr = zanrData.toZanr();
 
-        if(zanr.isPresent()) {
-            var success = upravljanjeZanrovZrno.posodobiZanr(id, zanrData);
-            return Response.ok().build();
-        }
-
-        return Response.status(Response.Status.NOT_FOUND).build();*/
     }
 
 }

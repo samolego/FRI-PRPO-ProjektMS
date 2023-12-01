@@ -50,34 +50,6 @@ public class UporabnikVir {
                 .build();
     }
 
-    /*@GET
-    @Path("{id}/vseckani")
-    public Response getUporabnikLikedFilms(@PathParam("id") int id) {
-        var uporabnik = uporabnikZrno.getUporabnikById(id);
-
-        if(!uporabnik.isPresent()) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
-        List<Film> vseckaniFilmi = uporabnik.get().getFilmiVsec();
-
-        return Response.status(Response.Status.OK).entity(vseckaniFilmi).build();
-    }
-
-    @GET
-    @Path("{id}/gledani")
-    public Response getUporabnikWatchedFilms(@PathParam("id") int id) {
-        var uporabnik = uporabnikZrno.getUporabnikById(id);
-
-        if(!uporabnik.isPresent()) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
-        List<Film> gledaniFilmi = uporabnik.get().getFilmiPogledano();
-
-        return Response.status(Response.Status.OK).entity(gledaniFilmi).build();
-    }*/
-
     @POST
     public Response addUporabnik(UporabnikDTO uporabnikData) {
         var success = upravljanjeUporabnikovZrno.dodajUporabnika(uporabnikData);
@@ -112,37 +84,4 @@ public class UporabnikVir {
 
     }
 
-    /*@PUT
-    @Path("{id}/pogledan/{idFilm}")
-    public Response addWatchedFilm(@PathParam("id") int id, @PathParam("idFilm") int idFilm) {
-        var uporabnik = uporabnikZrno.getUporabnikById(id);
-
-        if(uporabnik.isPresent()) {
-            boolean success = upravljanjeUporabnikovZrno.addFilmPogledano(id, idFilm);
-            if (!success) {
-                return  Response.status(Response.Status.NOT_FOUND).build();
-            } else {
-                return  Response.ok().build();
-            }
-        }
-
-        return Response.status(Response.Status.NOT_FOUND).build();
-    }
-
-    @PUT
-    @Path("{id}/vseckan/{idFilm}")
-    public Response addLikedFilm(@PathParam("id") int id, @PathParam("idFilm") int idFilm) {
-        var uporabnik = uporabnikZrno.getUporabnikById(id);
-
-        if(uporabnik.isPresent()) {
-            boolean success = upravljanjeUporabnikovZrno.addFilmVsec(id, idFilm);
-            if(!success) {
-                return Response.status(Response.Status.NOT_FOUND).build();
-            } else {
-                return Response.ok().build();
-            }
-        }
-
-        return Response.status(Response.Status.NOT_FOUND).build();
-    }*/
 }

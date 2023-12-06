@@ -16,6 +16,18 @@ Primeri klicev:
     * izpiše vse uporabnike, ki uporabljajo yahoo mail in jih uredi po priimku naraščajoče (A-Ž)
 6. `GET` [localhost:8080/v1/kinoteke?fields=spletnaStran&offset=2](http://localhost:8080/v1/kinoteke?fields=spletnaStran&offset=2)
     * izpiše vse kinoteke, ki imajo spletno stran in preskoči prvi dve
+7. `GET` [localhost:8080/v1/kinoteke?filter=ime:LIKEIC:%cinema%](http://localhost:8080/v1/kinoteke?filter=ime:LIKEIC:%cinema%)
+   * izpiše vse kinoteke, ki imajo v nazivu podniz "cinema", ne glede na velikost črk
+8. `GET` [localhost:8080/v1/zanri?order=ime ASC&offset=2](http://localhost:8080/v1/zanri?order=ime%20ASC&offset=2)
+   * izpiše žanre, urejene po abecedi naraščajoče in preskiči prva dva
+9. `GET` [localhost:8080/v1/uporabniki?order=priimek ASC&limit=5](http://localhost:8080/v1/uporabniki?order=priimek%20ASC&limit=5)
+   * uredi uporabnike po priimku naraščajoče in izpiše prvih 5
+10. `GET` [localhost:8080/v1/filmi?filter=opis:LIKEIC:%classic%](http://localhost:8080/v1/filmi?filter=opis:LIKEIC:%classic%)
+    * izpiše vse filme, ki imajo besedo "classic" v svojem opisu, ne glede na velikost črk
+11. `GET` [localhost:8080/v1/filmi?filter=datumIzida:GT:'2023-10-13T22:00:00Z[UTC]'&limit=5](http://localhost:8080/v1/filmi?filter=datumIzida:GT:'2023-10-13T22:00:00Z[UTC]'&limit=5)
+    * izpiše prvih pet filmov, izdanih po 13.10.2023
+12. `GET` [localhost:8080/v1/filmi?filter=rating:EQ:5](http://localhost:8080/v1/filmi?filter=rating:EQ:5)
+    * izpiše vse filme, ocenjene z oceno 5
 
 
 ## Baza

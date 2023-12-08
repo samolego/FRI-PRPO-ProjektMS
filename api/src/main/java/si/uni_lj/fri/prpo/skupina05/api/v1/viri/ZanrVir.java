@@ -1,6 +1,12 @@
 package si.uni_lj.fri.prpo.skupina05.api.v1.viri;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.entitete.Zanr;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.ZanrZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeZanrovZrno;
@@ -31,6 +37,12 @@ public class ZanrVir {
     private UpravljanjeZanrovZrno upravljanjeZanrovZrno;
 
     @GET
+    @Operation(summary = "Get all genres", description = "Returns all genres.")
+    @APIResponses({
+            @APIResponse(description = "OK with all genres", responseCode = "200", content = @Content(schema = @Schema(
+                    implementation = Zanr.class
+            )))
+    })
     public Response getZanri() {
         final var query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<Zanr> zanri = zanrZrno.getZanri(query);
@@ -41,6 +53,13 @@ public class ZanrVir {
     }
 
     @GET
+    @Operation(summary = "Get genre by ID", description = "Returns a single genre by its ID.")
+    @APIResponses({
+            @APIResponse(description = "OK with the genre", responseCode = "200", content = @Content(schema = @Schema(
+                    implementation = Zanr.class
+            ))),
+            @APIResponse(description = "Not found", responseCode = "404")
+    })
     @Path("{id}")
     public Response getZanrById(@PathParam("id") int id) {
         var zanr = zanrZrno.getZanrById(id);
@@ -51,6 +70,11 @@ public class ZanrVir {
     }
 
     @POST
+    @Operation(summary = "Add new genre", description = "Adds new genre using entered parameters.")
+    @APIResponses({
+            @APIResponse(description = "Created", responseCode = "201"),
+            @APIResponse(description = "Bad Request", responseCode = "400")
+    })
     public Response createZanr(ZanrDTO zanrData) {
         var success = upravljanjeZanrovZrno.dodajZanr(zanrData);
 
@@ -61,6 +85,11 @@ public class ZanrVir {
     }
 
     @DELETE
+    @Operation(summary = "Delete genre", description = "Deletes a genre using ID.")
+    @APIResponses({
+            @APIResponse(description = "OK", responseCode = "200"),
+            @APIResponse(description = "Not found", responseCode = "404")
+    })
     @Path("{id}")
     public Response deleteZanr(@PathParam("id") int id) {
         var success = upravljanjeZanrovZrno.izbrisiZanr(id);
@@ -73,6 +102,12 @@ public class ZanrVir {
     }
 
     @PUT
+    @Operation(summary = "Change genre properties", description = "Change genre properties using ID.")
+    @APIResponses({
+            @APIResponse(description = "OK", responseCode = "200"),
+            @APIResponse(description = "Not found", responseCode = "404"),
+            @APIResponse(description = "Bad Request", responseCode = "400")
+    })
     @Path("{id}")
     public Response updateZanr(@PathParam("id") int id, ZanrDTO zanrData) {
         var success = upravljanjeZanrovZrno.posodobiZanr(id, zanrData);

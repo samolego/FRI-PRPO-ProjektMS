@@ -110,7 +110,7 @@ public class UpravljanjeUporabnikovZrno {
     }
 
     @Transactional
-    public boolean posodobiUporabnika(int id, UporabnikDTO uporabnikDTO) throws IzjemaNotFoundDTO {
+    public boolean posodobiUporabnika(int id, UporabnikDTO uporabnikDTO) throws IzjemaNotFoundDTO, IzjemaBadRequestDTO {
         Optional<Uporabnik> uporabnik = toUporabnik(uporabnikDTO);
 
         if(!uporabnik.isPresent()) {

@@ -1,6 +1,12 @@
 package si.uni_lj.fri.prpo.skupina05.api.v1.viri;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.KinotekaZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeKinotekZrno;
@@ -31,6 +37,12 @@ public class KinotekaVir {
     private UpravljanjeKinotekZrno upravljanjeKinotekZrno;
 
     @GET
+    @Operation(summary = "Get all cinemas", description = "Returns all cinemas.")
+    @APIResponses({
+            @APIResponse(description = "OK with all cinemas", responseCode = "200", content = @Content(schema = @Schema(
+                    implementation = Kinoteka.class
+            )))
+    })
     public Response getKinoteke() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<Kinoteka> kinoteke = kinotekaZrno.getKinoteke(query);
@@ -40,17 +52,14 @@ public class KinotekaVir {
                 .build();
     }
 
-    /*@GET
-    @Path("{ime}")
-    public Response getKinotekaByIme(@PathParam("ime") String ime) {
-        var kinoteka = kinotekaZrno.getKinotekaByIme(ime);
-
-        return kinoteka.map(Response::ok)
-                .orElse(Response.status(Response.Status.NOT_FOUND))
-                .build();
-    }*/
-
     @GET
+    @Operation(summary = "Get cinema by ID", description = "Returns a single cinema by its ID.")
+    @APIResponses({
+            @APIResponse(description = "OK with the cinema", responseCode = "200", content = @Content(schema = @Schema(
+                    implementation = Kinoteka.class
+            ))),
+            @APIResponse(description = "Not found", responseCode = "404")
+    })
     @Path("{id}")
     public Response getKinotekaById(@PathParam("id") int id) {
         var kinoteka = kinotekaZrno.getKinotekaById(id);
@@ -61,6 +70,11 @@ public class KinotekaVir {
     }
 
     @POST
+    @Operation(summary = "Add new cinema", description = "Adds new cinema using entered parameters.")
+    @APIResponses({
+            @APIResponse(description = "Created", responseCode = "201"),
+            @APIResponse(description = "Bad Request", responseCode = "400")
+    })
     public Response createKinoteka(KinotekaDTO kinotekaData) {
         var status = upravljanjeKinotekZrno.dodajKinoteko(kinotekaData);
 
@@ -70,19 +84,12 @@ public class KinotekaVir {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
-    /*@DELETE
-    @Path("{ime}")
-    public Response deleteKinoteka(@PathParam("ime") String ime) {
-        var kinoteka = kinotekaZrno.getKinotekaByIme(ime);
-
-        if(kinoteka.isPresent()) {
-            kinotekaZrno.deleteKinotekaById(kinoteka.get().getId());
-            return Response.ok().build();
-        }
-
-        return Response.status(Response.Status.NOT_FOUND).build();
-    }*/
     @DELETE
+    @Operation(summary = "Delete cinema", description = "Deletes a cinema using ID.")
+    @APIResponses({
+            @APIResponse(description = "OK", responseCode = "200"),
+            @APIResponse(description = "Not found", responseCode = "404")
+    })
     @Path("{id}")
     public Response deleteKinoteka(@PathParam("id") int id) {
         var success = upravljanjeKinotekZrno.izbrisiKinoteko(id);
@@ -95,6 +102,12 @@ public class KinotekaVir {
     }
 
     @PUT
+    @Operation(summary = "Change cinema properties", description = "Change cinema properties using ID.")
+    @APIResponses({
+            @APIResponse(description = "OK", responseCode = "200"),
+            @APIResponse(description = "Not found", responseCode = "404"),
+            @APIResponse(description = "Bad Request", responseCode = "400")
+    })
     public Response updateNameKinoteka(KinotekaDTO kinotekaData) {
 
         var success = upravljanjeKinotekZrno.spremeniIme(kinotekaData);

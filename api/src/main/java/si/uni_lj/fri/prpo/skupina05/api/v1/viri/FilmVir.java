@@ -1,6 +1,11 @@
 package si.uni_lj.fri.prpo.skupina05.api.v1.viri;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.FilmZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeFilmovZrno;
@@ -31,6 +36,12 @@ public class FilmVir {
     private UpravljanjeFilmovZrno upravljanjeFilmovZrno;
 
     @GET
+    @Operation(summary = "Get all films", description = "Returns all films.")
+    @APIResponses({
+            @APIResponse(description = "OK with all films", responseCode = "200", content = @Content(schema = @Schema(
+                    implementation = Film.class
+            )))
+    })
     public Response getFilmi() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<Film> filmi = filmiZrno.getFilmi(query);
@@ -42,6 +53,13 @@ public class FilmVir {
 
 
     @GET
+    @Operation(summary = "Get film by ID", description = "Returns a single film by its ID.")
+    @APIResponses({
+            @APIResponse(description = "OK with the film", responseCode = "200", content = @Content(schema = @Schema(
+                    implementation = Film.class
+            ))),
+            @APIResponse(description = "Not found", responseCode = "404")
+    })
     @Path("{id}")
     public Response getFilmById(@PathParam("id") int id) {
         var film = filmiZrno.getFilmById(id);
@@ -52,6 +70,12 @@ public class FilmVir {
     }
 
     @POST
+    @Operation(summary = "Add new film", description = "Adds new film using entered parameters.")
+    @APIResponses({
+            @APIResponse(description = "Created", responseCode = "201"),
+            @APIResponse(description = "Bad Request", responseCode = "400"),
+            @APIResponse(description = "Not found", responseCode = "404")
+    })
     public Response createFilm(FilmDTO filmData) {
         var status = upravljanjeFilmovZrno.dodajFilm(filmData);
 
@@ -63,6 +87,11 @@ public class FilmVir {
 
 
     @DELETE
+    @Operation(summary = "Delete film", description = "Deletes a film using ID.")
+    @APIResponses({
+            @APIResponse(description = "OK", responseCode = "200"),
+            @APIResponse(description = "Not found", responseCode = "404")
+    })
     @Path("{id}")
     public Response deleteFilm(@PathParam("id") int id) {
         var film = filmiZrno.getFilmById(id);
@@ -76,6 +105,12 @@ public class FilmVir {
     }
 
     @PUT
+    @Operation(summary = "Change film properties", description = "Change film properties using ID.")
+    @APIResponses({
+            @APIResponse(description = "OK", responseCode = "200"),
+            @APIResponse(description = "Not found", responseCode = "404"),
+            @APIResponse(description = "Bad Request", responseCode = "400")
+    })
     @Path("{id}")
     public Response updateFilm(@PathParam("id") int id, FilmDTO filmData) {
         var film = upravljanjeFilmovZrno.toFilm(filmData);

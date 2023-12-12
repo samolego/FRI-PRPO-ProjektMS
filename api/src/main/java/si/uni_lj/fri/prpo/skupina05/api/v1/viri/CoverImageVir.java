@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 @Produces("image/*")
 public class CoverImageVir {
 
-    private static final String API_BASE = "http://www.omdbapi.com/?apiKey=%s&t=%s";
+    private static final String API_BASE = "https://www.omdbapi.com/?apiKey=%s&t=%s";
 
     private static final String API_KEY;
 

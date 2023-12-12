@@ -11,6 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -54,7 +56,8 @@ public class CoverImageVir {
                 image = imageCache.get(flm.getId());
             } else {
                 // Request to api using JAX-RS
-                var response = client.target(String.format(API_BASE, API_KEY, flm.getIme()))
+                final String encodedFilmName = URLEncoder.encode(flm.getIme(), StandardCharsets.UTF_8);
+                var response = client.target(String.format(API_BASE, API_KEY, encodedFilmName))
                         .request()
                         .get();
 

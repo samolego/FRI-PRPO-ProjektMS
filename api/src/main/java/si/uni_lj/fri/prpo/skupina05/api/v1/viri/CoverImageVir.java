@@ -1,6 +1,6 @@
 package si.uni_lj.fri.prpo.skupina05.api.v1.viri;
 
-import si.uni_lj.fri.prpo.skupina05.api.imdb.ImdbResponse;
+import si.uni_lj.fri.prpo.skupina05.api.other.OmdbAPIResponse;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.FilmZrno;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -20,13 +20,13 @@ import java.util.logging.Logger;
 @Produces("image/*")
 public class CoverImageVir {
 
-    private static final String RAPID_API = "https://imdb188.p.rapidapi.com/api/v1/searchIMDB?query=";
+    private static final String API_BASE = "http://www.omdbapi.com/?apiKey=%s&t=%s";
 
     private static final String API_KEY;
 
     static {
         // Read API key from environment variable
-        API_KEY = System.getenv("RAPID_API_KEY");
+        API_KEY = System.getenv("OMDB_API_KEY");
     }
 
     private final Logger log = Logger.getLogger(CoverImageVir.class.getName());
@@ -39,7 +39,7 @@ public class CoverImageVir {
     @Path("{id}")
     public Response getCoverImage(@PathParam("id") int id) {
         if (API_KEY == null) {
-            log.severe("RAPID API key is not set! Please set it in the environment variable RAPID_API_KEY.");
+            log.severe("OMDB API key is not set! Please set it in the environment variable OMDB_API_KEY.");
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
         var film = filmiZrno.getFilmById(id);
@@ -54,19 +54,18 @@ public class CoverImageVir {
                 image = imageCache.get(flm.getId());
             } else {
                 // Request to api using JAX-RS
-                var response = client.target(RAPID_API + flm.getIme())
+                var response = client.target(String.format(API_BASE, API_KEY, flm.getIme()))
                         .request()
-                        .header("X-RapidAPI-Key", API_KEY)
-                        .header("X-RapidAPI-Host", "imdb188.p.rapidapi.com")
                         .get();
 
                 // Parse to json
                 if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-                    log.warning("Failed to get cover image from IMDB API! Response: " + response.readEntity(String.class));
+                    log.warning("Failed to get cover image from OMDB API! Response: " + response.readEntity(String.class));
                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
                 }
-                var imdbResponse = response.readEntity(ImdbResponse.class);
-                image = imdbResponse.data.get(0).image;
+                var omdbResponse = response.readEntity(OmdbAPIResponse.class);
+                image = omdbResponse.Poster;
+
 
                 // Cache image
                 imageCache.put(flm.getId(), image);

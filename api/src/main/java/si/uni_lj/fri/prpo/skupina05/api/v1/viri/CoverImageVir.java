@@ -54,6 +54,7 @@ public class CoverImageVir {
 
             // Parse to json
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+                log.warning("Failed to get cover image from IMDB API! Response: " + response.readEntity(String.class));
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
             }
             var imdbResponse = response.readEntity(ImdbResponse.class);

@@ -48,4 +48,8 @@ public abstract class EntityBean<T extends IdentifiableEntity> {
     protected List<T> getEntities(QueryParameters query, Class<T> clas) {
         return JPAUtils.queryEntities(this.getEntityManager(), clas, query);
     }
+
+    protected long getEntitiesCount(QueryParameters query, Class<T> clas) {
+        return JPAUtils.queryEntitiesCount(this.getEntityManager(), clas, query);
+    }
 }

@@ -55,4 +55,8 @@ public class ZanrZrno extends EntityBean<Zanr> {
     public List<Zanr> getZanri(QueryParameters query) {
         return this.getEntities(query, Zanr.class);
     }
+
+    public long getZanriCount(QueryParameters query) {
+        return this.getEntitiesCount(query, Zanr.class);
+    }
 }

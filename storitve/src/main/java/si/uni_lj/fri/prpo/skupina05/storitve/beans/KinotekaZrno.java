@@ -73,4 +73,8 @@ public class KinotekaZrno extends EntityBean<Kinoteka> {
     public List<Kinoteka> getKinoteke(QueryParameters query) {
         return this.getEntities(query, Kinoteka.class);
     }
+
+    public long getKinotekeCount(QueryParameters query) {
+        return this.getEntitiesCount(query, Kinoteka.class);
+    }
 }

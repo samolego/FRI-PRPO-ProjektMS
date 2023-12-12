@@ -62,4 +62,8 @@ public class FilmZrno extends EntityBean<Film> {
     public List<Film> getFilmi(QueryParameters query) {
         return this.getEntities(query, Film.class);
     }
+
+    public long getFilmiCount(QueryParameters query) {
+        return this.getEntitiesCount(query, Film.class);
+    }
 }

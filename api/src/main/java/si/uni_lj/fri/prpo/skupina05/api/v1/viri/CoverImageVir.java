@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -32,6 +33,8 @@ public class CoverImageVir {
     @Inject
     private FilmZrno filmiZrno;
 
+    private final HashMap<Integer, String> imageCache = new HashMap<>();
+
     @GET
     @Path("{id}")
     public Response getCoverImage(@PathParam("id") int id) {
@@ -41,31 +44,38 @@ public class CoverImageVir {
         }
         var film = filmiZrno.getFilmById(id);
 
+        final String image;
         if (film.isPresent()) {
-            var flm = film.get();
-            // Request to api using JAX-RS
-            var client = ClientBuilder.newClient();
+            final var flm = film.get();
+            final var client = ClientBuilder.newClient();
 
-            var response = client.target(RAPID_API + flm.getIme())
-                    .request()
-                    .header("X-RapidAPI-Key", API_KEY)
-                    .header("X-RapidAPI-Host", "imdb188.p.rapidapi.com")
-                    .get();
+            // Check cache
+            if (imageCache.containsKey(flm.getId())) {
+                image = imageCache.get(flm.getId());
+            } else {
+                // Request to api using JAX-RS
+                var response = client.target(RAPID_API + flm.getIme())
+                        .request()
+                        .header("X-RapidAPI-Key", API_KEY)
+                        .header("X-RapidAPI-Host", "imdb188.p.rapidapi.com")
+                        .get();
 
-            // Parse to json
-            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-                log.warning("Failed to get cover image from IMDB API! Response: " + response.readEntity(String.class));
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+                // Parse to json
+                if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+                    log.warning("Failed to get cover image from IMDB API! Response: " + response.readEntity(String.class));
+                    return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+                }
+                var imdbResponse = response.readEntity(ImdbResponse.class);
+                image = imdbResponse.data.get(0).image;
+
+                // Cache image
+                imageCache.put(flm.getId(), image);
             }
-            var imdbResponse = response.readEntity(ImdbResponse.class);
-            var image = imdbResponse.data.get(0).image;
 
             // Download image and serve it
-            response = client.target(image)
+            return client.target(image)
                     .request()
                     .get();
-
-            return response;
         }
 
         return film.map(Response::ok)

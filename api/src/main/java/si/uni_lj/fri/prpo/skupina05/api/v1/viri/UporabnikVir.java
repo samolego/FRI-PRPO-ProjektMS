@@ -36,7 +36,7 @@ public class UporabnikVir {
         List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki(query);
 
         return Response.ok(uporabniki)
-                .header("X-Total-Count", uporabniki.size())
+                .header("X-Total-Count", uporabnikZrno.getUporabnikiCount(query))
                 .build();
     }
 

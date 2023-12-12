@@ -36,7 +36,7 @@ public class ZanrVir {
         List<Zanr> zanri = zanrZrno.getZanri(query);
 
         return Response.ok(zanri)
-                .header("X-Total-Conut", zanri.size())
+                .header("X-Total-Conut", zanrZrno.getZanriCount(query))
                 .build();
     }
 

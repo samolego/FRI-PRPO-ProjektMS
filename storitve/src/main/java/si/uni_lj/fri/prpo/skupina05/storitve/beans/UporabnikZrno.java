@@ -51,4 +51,8 @@ public class UporabnikZrno extends EntityBean<Uporabnik> {
     public List<Uporabnik> getUporabniki(QueryParameters query) {
         return this.getEntities(query, Uporabnik.class);
     }
+
+    public long getUporabnikiCount(QueryParameters query) {
+        return this.getEntitiesCount(query, Uporabnik.class);
+    }
 }

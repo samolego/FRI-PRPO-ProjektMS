@@ -34,9 +34,10 @@ public class FilmVir {
     public Response getFilmi() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<Film> filmi = filmiZrno.getFilmi(query);
+        long count = filmiZrno.getFilmiCount(query);
 
         return Response.ok(filmi)
-                .header("X-Total-Count", filmi.size())
+                .header("X-Total-Count", count)
                 .build();
     }
 

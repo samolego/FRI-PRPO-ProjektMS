@@ -36,7 +36,7 @@ public class KinotekaVir {
         List<Kinoteka> kinoteke = kinotekaZrno.getKinoteke(query);
 
         return Response.ok(kinoteke)
-                .header("X-Total-Count", kinoteke.size())
+                .header("X-Total-Count", kinotekaZrno.getKinotekeCount(query))
                 .build();
     }
 

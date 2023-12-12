@@ -103,7 +103,7 @@ public class UpravljanjeFilmovZrno {
     }
 
     @Transactional
-    public boolean posodobiFilm(int id, FilmDTO filmData) throws IzjemaNotFoundDTO {
+    public boolean posodobiFilm(int id, FilmDTO filmData) throws IzjemaNotFoundDTO, IzjemaBadRequestDTO {
         var film = toFilm(filmData);
 
         if(!film.isPresent()) {

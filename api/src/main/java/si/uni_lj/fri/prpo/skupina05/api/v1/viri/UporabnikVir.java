@@ -1,6 +1,12 @@
 package si.uni_lj.fri.prpo.skupina05.api.v1.viri;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.entitete.Uporabnik;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.UporabnikZrno;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.upravljanje.UpravljanjeUporabnikovZrno;
@@ -31,6 +37,12 @@ public class UporabnikVir {
     private UpravljanjeUporabnikovZrno upravljanjeUporabnikovZrno;
 
     @GET
+    @Operation(summary = "Get all users", description = "Returns all users.")
+    @APIResponses({
+            @APIResponse(description = "OK with all users", responseCode = "200", content = @Content(schema = @Schema(
+                    implementation = Uporabnik.class
+            )))
+    })
     public Response getUporabniki() {
         final var query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki(query);
@@ -41,6 +53,13 @@ public class UporabnikVir {
     }
 
     @GET
+    @Operation(summary = "Get user by ID", description = "Returns a single user by its ID.")
+    @APIResponses({
+            @APIResponse(description = "OK with the user", responseCode = "200", content = @Content(schema = @Schema(
+                    implementation = Uporabnik.class
+            ))),
+            @APIResponse(description = "Not found", responseCode = "404")
+    })
     @Path("{id}")
     public Response getUporabnikById(@PathParam("id") int id) {
         var uporabnik = uporabnikZrno.getUporabnikById(id);
@@ -51,6 +70,11 @@ public class UporabnikVir {
     }
 
     @POST
+    @Operation(summary = "Add new user", description = "Adds new user using entered parameters.")
+    @APIResponses({
+            @APIResponse(description = "Created", responseCode = "201"),
+            @APIResponse(description = "Bad Request", responseCode = "400")
+    })
     public Response addUporabnik(UporabnikDTO uporabnikData) {
         var success = upravljanjeUporabnikovZrno.dodajUporabnika(uporabnikData);
 
@@ -61,6 +85,11 @@ public class UporabnikVir {
     }
 
     @DELETE
+    @Operation(summary = "Delete user", description = "Deletes a user using ID.")
+    @APIResponses({
+            @APIResponse(description = "OK", responseCode = "200"),
+            @APIResponse(description = "Not found", responseCode = "404")
+    })
     @Path("{id}")
     public Response deleteUporabnik(@PathParam("id") int id) {
 
@@ -73,6 +102,12 @@ public class UporabnikVir {
     }
 
     @PUT
+    @Operation(summary = "Change user properties", description = "Change user properties using ID.")
+    @APIResponses({
+            @APIResponse(description = "OK", responseCode = "200"),
+            @APIResponse(description = "Not found", responseCode = "404"),
+            @APIResponse(description = "Bad Request", responseCode = "400")
+    })
     @Path("{id}")
     public Response updateUporabnik(@PathParam("id") int id, UporabnikDTO uporabnikData) {
 

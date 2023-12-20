@@ -25,6 +25,7 @@
         <kumuluzee-rest.version>2.0.1</kumuluzee-rest.version>
         <kumuluzee-config-mp.version>2.0.0</kumuluzee-config-mp.version>
         <kumuluzee-openapi-mp.version>1.4.0</kumuluzee-openapi-mp.version>
+        <kumuluzee-cors.version>2.0.0</kumuluzee-cors.version>
         <postgresql.version>42.6.0</postgresql.version>
         <revision>1.0.0-SNAPSHOT</revision>
     </properties>

@@ -1,5 +1,6 @@
 package si.uni_lj.fri.prpo.skupina05.api.v1.viri;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import si.uni_lj.fri.prpo.skupina05.api.other.OmdbAPIResponse;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.FilmZrno;
 
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 @Path("cover-image")
 // Serve image type
 @Produces("image/*")
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class CoverImageVir {
 
     private static final String API_BASE = "https://www.omdbapi.com/?apiKey=%s&t=%s";

@@ -1,5 +1,6 @@
 package si.uni_lj.fri.prpo.skupina05.api;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import si.uni_lj.fri.prpo.skupina05.entitete.Film;
 import si.uni_lj.fri.prpo.skupina05.entitete.Kinoteka;
 import si.uni_lj.fri.prpo.skupina05.storitve.beans.FilmZrno;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/servlet")
+@CrossOrigin(supportedMethods = "GET")
 public class JPAServlet extends HttpServlet {
 
     @Inject

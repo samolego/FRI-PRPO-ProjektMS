@@ -10,7 +10,12 @@ import {SeznamiComponent} from './seznami/seznami.component';
 import {ArtikelDodajComponent} from './seznami/artikel-dodaj.component';
 import {SeznamPodrobnostiComponent} from './seznami/seznam-podrobnosti.component';
 import {SeznamiService} from './seznami/services/seznami.service';
-
+import {FilmiComponent} from './seznami/filmi.component';
+import {FilmiService} from "./seznami/services/filmi.service";
+import {FilmPodrobnostiComponent} from './seznami/film-podrobnosti.component'
+import {UporabnikPodrobnostiComponent} from './seznami/uporabnik-podrobnosti.component'
+import {FilmiByZanrComponent} from './seznami/filmi-by-zanr.component'
+import {DateConvertPipe} from './seznami/pipes/date-convert.pipe'
 
 @NgModule({
     imports: [
@@ -23,9 +28,14 @@ import {SeznamiService} from './seznami/services/seznami.service';
         AppComponent,
         SeznamiComponent,
         SeznamPodrobnostiComponent,
-        ArtikelDodajComponent
+        ArtikelDodajComponent,
+        FilmiComponent,
+        FilmPodrobnostiComponent,
+        UporabnikPodrobnostiComponent,
+        FilmiByZanrComponent,
+        DateConvertPipe
     ],
-    providers: [SeznamiService],
+    providers: [SeznamiService, FilmiService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

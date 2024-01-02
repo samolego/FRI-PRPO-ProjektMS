@@ -1,0 +1,38 @@
+<div *ngIf="uporabnik" id="uporabnikPodrobnosti">
+
+    <h3>{{uporabnik.ime}} {{uporabnik.priimek}}</h3>
+    <div class="card" style="width: 40%">
+        <p>Email: {{uporabnik.email}}</p>
+        <p>Username: {{uporabnik.uporabniskoIme}}</p>
+        <div class="list-group list-group-flush">
+            <div class="list-group-item">
+            <h3>Liked films:</h3>
+            <ul class="seznami">
+                <div *ngFor="let film of filmi">
+                    <div *ngFor="let up of film.uporabnikiVsec">
+                        <li *ngIf="up.id == uporabnik.id">
+                            <p>{{film.ime}} ({{film.zanr.ime}})</p>
+                        </li>
+                    </div>
+                </div>
+            </ul>
+            </div>
+
+            <div class="list-group-item">
+            <h3>Watched films:</h3>
+            <ul class="seznami">
+                <div *ngFor="let film of filmi">
+                    <div *ngFor="let up of film.uporabnikiPogledano">
+                        <li *ngIf="up.id == uporabnik.id">
+                            <p>{{film.ime}} ({{film.zanr.ime}})</p>
+                        </li>
+                    </div>
+                </div>
+            </ul>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn background-blue shadow rounded-1 mt-4" (click)="priporocaj()">Recommend films</button>
+    <button class="btn border-blue shadow rounded-1 mt-4" (click)="nazaj()">Back</button>
+</div>

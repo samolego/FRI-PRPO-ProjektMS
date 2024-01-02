@@ -1,0 +1,72 @@
+<div *ngIf="film" id="allFilms">
+    <div class="card" style="width: 50%">
+        <div class="card-header">
+            <h3>{{film.ime}}</h3>
+        </div>
+        <div class="card-body">
+            <p>Description: {{film.opis}}</p>
+            <p>Release date: {{film.datumIzida.toString() | dateConvert }}</p>
+            <p>Rating: {{film.rating}}</p>
+            <p>Genre: {{film.zanr.ime}}</p>
+
+            <p *ngIf="film.kinoteke.length != 0">Available at:</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let kinoteka of film.kinoteke">
+                    <span>{{kinoteka.ime}}</span> <br>
+                    <span>{{kinoteka.spletnaStran}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <button
+            type="button"
+            id="filmIzbrnisi"
+            data-bs-toggle="modal"
+            data-bs-target="#modalnoOknoIzbrisi"
+            class="btn background-red shadow rounded-1 mt-4"
+    > Delete</button>
+    <button class="btn border-blue shadow rounded-1 mt-4" (click)="nazaj()">Back to all films</button>
+</div>
+
+<div
+        class="modal fade rounded-1"
+        id="modalnoOknoIzbrisi"
+        tabindex=""
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div
+                class="modal-content card text-center rounded-bottom-2 rounded-top-2"
+                id="modalnoOkno2"
+        >
+            <div class="modal-header border-bottom-0">
+                <button
+                        type="button"
+                        class="btn-close btn-sm"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <p style="color: #27374D"><em>Are you sure you want to delete this film?</em></p>
+                <form class="" (ngSubmit)="izbrisi()">
+                    <div class="d-flex gumbi">
+                        <button
+                                type="submit"
+                                class="btn shadow rounded-1 mt-4 buttonsChange background-blue"
+                                id="submitChanges2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalnoOknoChange"
+                                (keyup.enter)="izbrisi()"
+                        >
+                            Yes!
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

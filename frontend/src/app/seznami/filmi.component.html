@@ -1,0 +1,154 @@
+<div class="d-flex flex-nowrap justify-content-evenly">
+    <div class="order-1" id="allFilms">
+        <div class="">
+            <h2>All films available:</h2>
+        </div>
+        <div class="">
+            <ul class="seznami">
+                <li (click)="naPodrobnosti(f)" *ngFor="let f of filmi">
+                    <span>{{f.ime}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="order-2 d-flex flex-column">
+        <div class="card p-2" id="genresCard">
+            <div class="card-header" style="background-color: white">
+                <h2>Find films choosing your favourite film genre:</h2>
+            </div>
+            <div class="card-body">
+                <ul class="seznami">
+                    <li (click)="getFilmiByZanr(zanr)" *ngFor="let zanr of zanri">
+                        <span>{{zanr.ime}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="p-2">
+            <button
+                    type="button"
+                    id="prijava"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalnoOkno"
+                    class="btn background-blue shadow rounded-1 mt-4"
+            > My films</button>
+
+            <button
+                    type="button"
+                    id="dodaj"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalnoOknoDodaj"
+                    class="btn background-blue shadow rounded-1 mt-4"
+            >Add new film</button>
+        </div>
+    </div>
+</div>
+
+
+<div
+        class="modal fade rounded-1"
+        id="modalnoOkno"
+        tabindex=""
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div
+                class="modal-content card text-center rounded-bottom-2 rounded-top-2"
+                id="modalnoOkno1"
+        >
+            <div class="modal-header border-bottom-0">
+                <button
+                        type="button"
+                        class="btn-close btn-sm"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <p style="color: #27374D"><em>Please enter your id.</em></p>
+                <form class="" (ngSubmit)="idPoslji()">
+                    <div class="form-group rounded-1 mt-2 d-flex justify-content-center">
+                        <input class="form-control" id="id" style="width: 15em;" placeholder="your id here" [(ngModel)]="uporabnikId" />
+                    </div>
+                    <div class="d-flex gumbi">
+                        <button
+                                type="submit"
+                                class="btn shadow rounded-1 mt-4 buttonsChange background-blue"
+                                style="margin: auto"
+                                id="submitChanges"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalnoOknoChange"
+                                (keyup.enter)="idPoslji()"
+                        >
+                            GO!
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div
+        class="modal fade rounded-1"
+        id="modalnoOknoDodaj"
+        tabindex=""
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div
+                class="modal-content card text-center rounded-bottom-2 rounded-top-2"
+                id="modalnoOkno2"
+        >
+            <div class="modal-header border-bottom-0">
+                <button
+                        type="button"
+                        class="btn-close btn-sm"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <p style="color: #27374D"><em>Please enter information about new film.</em></p>
+                <form class="" (ngSubmit)="dodaj()">
+                    <div class="form-group rounded-1 mt-2">
+                        <label style="color: #27374D" for="name" class="col">Name:</label>
+                        <input class="form-control" placeholder="film name here" id="name" [(ngModel)]="novFilm.ime" />
+                    </div>
+                    <div class="form-group rounded-1 mt-2">
+                        <label style="color: #27374D" for="opis" class="col">Description:</label>
+                        <textarea class="form-control" id="opis" rows="3"  placeholder="film description here" [(ngModel)]="novFilm.opis"></textarea>
+                    </div>
+                    <div class="form-group rounded-1 mt-2">
+                        <label style="color: #27374D" for="datumIzida" class="col">Release date:</label>
+                        <input class="form-control" id="datumIzida" type="date" [(ngModel)]="novFilm.datumIzida"/>
+                    </div>
+                    <div class="form-group rounded-1 mt-2">
+                        <label style="color: #27374D" for="zanr" class="col">Genre name:</label>
+
+                        <select class="form-control" id="zanr" [(ngModel)]="novFilm.zanr.id">
+                            <option *ngFor="let z of zanri" [ngValue]="z.id">{{z.ime}}</option>
+                        </select>
+                    </div>
+                    <div class="d-flex gumbi">
+                        <button
+                                type="submit"
+                                class="btn shadow rounded-1 mt-4 rounded-1 background-blue"
+                                style="margin: auto"
+                                id=""
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalnoOknoChange"
+                                (keyup.enter)="dodaj()"
+                        >
+                            Send!
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div *ngIf="zanr" id="filmByZanr">
+
+    <h3>{{zanr.ime}}</h3>
+    <div class="card" style="width: 40%">
+        <div class="card-header">
+            <h5>Available films:</h5>
+        </div>
+        <div class="card-body">
+            <ul class="seznami">
+                <div *ngFor="let film of filmi">
+                    <li (click)="naPodrobnosti(film)" *ngIf="film.zanr.id == zanr.id">
+                        <span>{{film.ime}}</span>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <button class="btn background-blue shadow rounded-1 mt-4" (click)="nazaj()">Back to all films</button>
+</div>

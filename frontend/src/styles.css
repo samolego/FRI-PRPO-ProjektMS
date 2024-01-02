@@ -1,77 +1,77 @@
 h1 {
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
+    color: #369;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 250%;
 }
 
-.selected {
-  background-color: #CFD8DC !important;
-  color: white;
+h3 {
+    color: #27374D;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
+h5 {
+    color: #27374D;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#allFilms {
+    width: 70%;
+    padding-left: 30px;
+}
+
+#filmByZanr {
+    width: 70%;
+    padding-left: 30px;
+}
+
+#uporabnikPodrobnosti {
+    width: 70%;
+    padding-left: 30px;
+}
+
+#genresCard {
+    width: 70%;
+    background-color: #DDE6ED;
+    padding-left: 0px;
+}
+
+.background-blue {
+    background-color: #27374D;
+    color: white;
+    margin-left: 10px;
+}
+
+.background-red {
+    background-color: darkred;
+    color: white;
+    margin-left: 10px;
+}
+
+.border-blue {
+    border-color: #27374D;
+    color: #27374D;
+    margin-left: 10px;
+}
+
 .seznami {
-  margin: 0 0 2em 0;
-  list-style-type: none;
-  padding: 0;
-  width: 15em;
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
 }
 .seznami li {
-  cursor: pointer;
-  position: relative;
-  left: 0;
-  background-color: #EEE;
-  margin: .5em;
-  padding: .3em 0 0 .3em;
-  height: 1.6em;
-  border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0 0 .3em;
+    height: 1.6em;
+    border-radius: 4px;
 }
 .seznami li:hover {
-  color: #607D8B;
-  background-color: #DDD;
-  left: .1em;
-}
-.seznami li.selected:hover {
-  background-color: #BBD8DC !important;
-  color: white;
-}
-.seznami .text {
-  position: relative;
-  top: -3px;
+    color: #607D8B;
+    background-color: white;
+    left: .1em;
 }
 
-.artikli ul {
-  list-style-type: circle;
-}
-
-.seznami .badge {
-  display: inline-block;
-  font-size: small;
-  color: white;
-  padding: 0.8em 0.7em 0 0.7em;
-  background-color: #607D8B;
-  line-height: 1em;
-  position: relative;
-  left: -1px;
-  top: -4px;
-  height: 1.8em;
-  margin-right: .8em;
-  border-radius: 4px 0 0 4px;
-}
-button {
-  font-family: Arial;
-  background-color: #eee;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  cursor: hand;
-  margin: 0.2em;
-}
-button:hover {
-  background-color: #cfd8dc;
-}
-button.delete {
-  float:right;
-  margin-right: .8em;
-  background-color: gray !important;
-  color:white;
-}

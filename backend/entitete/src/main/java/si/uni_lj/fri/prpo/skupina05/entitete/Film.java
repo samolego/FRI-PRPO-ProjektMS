@@ -37,22 +37,21 @@ public class Film implements IdentifiableEntity {
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "zanr_id")
-    @JsonbTransient
+    //@JsonbTransient
     private Zanr zanr;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "uporabnik_id")
-    @JsonbTransient
+    //@JsonbTransient
     private List<Uporabnik> uporabnikiPogledano;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "uporabnik_id")
-    @JsonbTransient
+    //@JsonbTransient
     private List<Uporabnik> uporabnikiVsec;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "kinoteka_id")
-    @JsonbTransient
     private List<Kinoteka> kinoteke;
 
     public Integer getId() { return id; }

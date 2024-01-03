@@ -4,6 +4,7 @@
             <h3>{{film.ime}}</h3>
         </div>
         <div class="card-body">
+            <img [src]="getFilmImg()" class="img-fluid rounded-1">
             <p>Description: {{film.opis}}</p>
             <p>Release date: {{film.datumIzida.toString() | dateConvert }}</p>
             <p>Rating: {{film.rating}}</p>

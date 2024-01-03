@@ -5,6 +5,7 @@ import {Location} from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 import {Film} from "./models/film";
 import {FilmiService} from "./services/filmi.service";
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -37,5 +38,10 @@ export class FilmPodrobnostiComponent implements OnInit {
 
     nazaj(): void {
         this.router.navigate(['filmi']);
+    }
+
+
+    getFilmImg() {
+        return environment.apiUrl + "/cover-image/" + this.film.id;
     }
 }

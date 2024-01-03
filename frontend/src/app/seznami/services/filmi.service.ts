@@ -4,7 +4,6 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, retry} from 'rxjs';
 
 import { catchError } from 'rxjs/operators';
-import {NakupovalniSeznam} from "../models/seznam";
 import {Film} from "../models/film";
 import {Uporabnik} from "../models/uporabnik";
 import {Zanr} from "../models/zanr";

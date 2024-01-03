@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Film} from "./models/film";
 import {FilmiService} from "./services/filmi.service";
-import {NakupovalniSeznam} from "./models/seznam";
 import {Zanr} from "./models/zanr";
 
 @Component({

@@ -8,12 +8,13 @@ import {NakupovalniSeznam} from "../models/seznam";
 import {Film} from "../models/film";
 import {Uporabnik} from "../models/uporabnik";
 import {Zanr} from "../models/zanr";
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FilmiService {
 
     private headers = new HttpHeaders({'Content-Type': 'application/json'});
-    private url = 'http://localhost:8080/v1';
+    private url = environment.apiUrl;
 
     constructor(private http: HttpClient) {
     }

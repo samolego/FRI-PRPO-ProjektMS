@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
 
 import { catchError } from 'rxjs/operators';
 import { Artikel } from '../models/artikel';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class SeznamiService {
 
     private headers = new HttpHeaders({'Content-Type': 'application/json'});
-    private url = 'http://localhost:8080/v1/seznami';
+    private url = environment.apiUrl + '/seznami';
 
     constructor(private http: HttpClient) {
     }

@@ -70,6 +70,23 @@ public class UporabnikVir {
                 .build();
     }
 
+    @GET
+    @Operation(summary = "Get user by username", description = "Returns a single user by its username.")
+    @APIResponses({
+            @APIResponse(description = "OK with the user", responseCode = "200", content = @Content(schema = @Schema(
+                    implementation = Uporabnik.class
+            ))),
+            @APIResponse(description = "Not found", responseCode = "404")
+    })
+    @Path("usernames/{username}")
+    public Response getUporabnikByUsername(@PathParam("username") String username) {
+        var uporabnik = uporabnikZrno.getUporabnikByUsername(username);
+
+        return uporabnik.map(Response::ok)
+                .orElse(Response.status(Response.Status.NOT_FOUND))
+                .build();
+    }
+
     @POST
     @Operation(summary = "Add new user", description = "Adds new user using entered parameters.")
     @APIResponses({

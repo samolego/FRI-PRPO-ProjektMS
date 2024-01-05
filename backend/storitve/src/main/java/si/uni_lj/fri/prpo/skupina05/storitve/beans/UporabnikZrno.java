@@ -36,9 +36,13 @@ public class UporabnikZrno extends EntityBean<Uporabnik> {
         return em;
     }
 
-    public Optional<Uporabnik> getUporabnikById(int id) { return this.getEntityById(id, Uporabnik.class); }
+    public Optional<Uporabnik> getUporabnikById(int id) {
+        return this.getEntityById(id, Uporabnik.class);
+    }
 
-    public List<Uporabnik> getUporabniki() { return this.em.createNamedQuery("Uporabnik.getAll", Uporabnik.class).getResultList(); }
+    public List<Uporabnik> getUporabniki() {
+        return this.em.createNamedQuery("Uporabnik.getAll", Uporabnik.class).getResultList();
+    }
 
     public void deleteUporabnikById(int id) {
         this.deleteEntityById(id, Uporabnik.class);
@@ -54,5 +58,12 @@ public class UporabnikZrno extends EntityBean<Uporabnik> {
 
     public long getUporabnikiCount(QueryParameters query) {
         return this.getEntitiesCount(query, Uporabnik.class);
+    }
+
+    public Optional<Uporabnik> getUporabnikByUsername(String username) {
+        return this.em.createNamedQuery("Uporabnik.getByUporabniskoIme", Uporabnik.class)
+                .setParameter("uporabniskoIme", username)
+                .getResultStream()
+                .findFirst();
     }
 }
